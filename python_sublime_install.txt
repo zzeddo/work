@@ -1,0 +1,11 @@
+초간단 python과 sublime Text3 설치 및 사용 방법 만들어 보았습니다.
+
+- Python 설치(https://www.python.org/downloads/release/python-342/)
+환경변수 등록(내컴퓨터>속성>고급속성>환경변수 > Path : C:\Python34)
+ - Sublime Text 3 Portable을 C:\SublimeText3 디렉토리에 설치함(http://www.sublimetext.com/3)
+환경변수 등록(내컴퓨터>속성>고급속성 > 환경변수 >Path : C:\SublimeText3 )
+- [Package Control] 패키지 컨트롤 설치(https://sublime.wbond.net/installation)
+ - [REPL 설치] SublimeText3 > Preference > Package Control > Install Package > Sublime REPL
+- [python 실행] test.py 작성
+print ("Hello World!");
+ CTRL-B : 실행하기
