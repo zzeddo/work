@@ -1,0 +1,89 @@
+1.kaggle 뽀개기 정보 사이트
+  http://kagglebreak.github.io/
+
+2. kaggle 뽀개기 데이터 및 코드 사이트(Git Hub)
+  https://github.com/KaggleBreak/problems
+  --> 위의 사이트에서 Download를 통하여 zip 파일로 자료 받음
+
+2.지난 과정
+  - 2월의 캐글 뽀개기 주제 : Bike sharing demand
+    . Code : https://github.com/KaggleBreak/problems/tree/master/2015_02_bike/00.code
+  - 3월의 캐글 뽀개기 주제 : Acquire Valued Shoppers Challenge
+  - 4월의 캐글 뽀개기 주제 : Personalize Expedia Hotel Searches
+
+3.5월의 캐글 뽀개기 주제 : Poker Rule Induction
+발표자 : 이상열님
+1) kaggle 소개
+kaggle(www.kaggle.com)은 2008년부터 운영되는 사이트로 
+매년 데이터 분석 대회를 개최하여 선정자에게 상금 및 다양한 해택을 제공하고 있음
+
+kaggle 사이트에서 101 그룹은 Getting Stared로 교육 자료를 제공하고 있다.
+
+kaggle의 대회(https://www.kaggle.com/competitions)의 경우 
+다양한 기업에서 데이터 분석 의뢰 형태로 대회를 열어 우승자에게 상금을 지급함
+(기업의 경우 분석 모델 제공함)
+
+kaggle의 취업 공고(https://www.kaggle.com/jobs)의 경우 경력 및 신입에 대한 정보 제공함
+
+kaggle에서 데이터 분석은 R과 python이 대세로 사용되고 있으나
+R의 경우 대용량 데이터 처리의 제약으로 python을 더 많이 사용하고 있는 추세이다.
+
+2) 발표 자료
+ ? http://kagglebreak.github.io/
+ ? kaggle 사이트에서 추천하는 교육 자료는 Titanic이며
+ ? 생존자들을 찾는 알고리즘을 찾는 문제로, Titanic 탑승자 명단과 정보를 통하여
+   실제 생존자와의 관계를 통하여 
+   탑승자가 어떤 조건이 되면 생존 가능성이 높은지를 알아내는 과정이 재미 있다.
+
+ ? 오늘 다룰 주제는 포커룰 학습룰임.(Poker Rule induction)
+ ? 핵심은 포커의 규칙을 5 Poker로 할때 포커를 해보지 않고 규칙을 모르는 외국인이라고 할때 
+   과거의 데이터를 가지고 규칙을 추론하는 과정을 기계학습을 통해 이룸.
+ ? 컴퓨터로 하여금 규칙을 생성하게 하고 포커의 결과를 분류하는 것이 목표
+ ? 실습 자료는 ipython Notebook과 R에서 수행할 수 있도록 제공함
+   - ipython : syleeie_poker_rule_introduction.ipynb
+   - R : syleeie_poker_rule_induction.Rmd
+
+3) kaggle Poker 데이터
+  25,010 poker hands(포커패) in train.csv 
+  1,000,000 poker hands(포커패) in test.csv
+  Each hand consists of five cards with a given suit and rank, drawn from a standard deck of 52
+  (각 포커패는 5개의 카드로 구성되어 있으며, 표준 52개 포커 카드 사용)
+
+4) 데이터 소개(S1, C1, ..., S5, C5, Hands)
+ ? S1 “Suit of card #1”--> 4개의 카드 구성 : spades (♠), hearts (♥), diamonds (?), clubs (♣)
+   Ordinal (1-4) representing {Hearts, Spades, Diamonds, Clubs}
+ ? C1 “Rank of card #1”--> 카드의 숫자
+   Numerical (1-13) representing (Ace, 2, 3, ... , Queen, King)
+ ? S5 “Suit of card #5”
+ ? C5 “Rank of card #5”
+
+5) Hands variables(카드패(5개)의 승부 규칙)
+ ? 0: Nothing in hand; not a recognized poker hand 
+ ? 1: One pair; one pair of equal ranks within five cards
+ ? 2: Two pairs; two pairs of equal ranks within five cards
+ ? 3: Three of a kind; three equal ranks within five cards
+ ? 4: Straight; five cards, sequentially ranked with no gaps
+ ? 5: Flush; five cards with the same suit
+ ? 6: Full house; pair + different rank three of a kind
+ ? 7: Four of a kind; four equal ranks within five cards
+ ? 8: Straight flush; straight + flush
+ ? 9: Royal flush; {Ace, King, Queen, Jack, Ten} + flush
+
+ 이렇게 5개의 카드패는 4개의 Suit(♠,♥, ?, ♣)와 13개의 순서(1-13)로 임의 구성되며
+ 아래 승부 규칙에 따라 점수를 산정함
+
+ 규칙을 정의할때 카드패에서 
+   9값이 나오는 조건에 대하여 우선 검토
+   8값이 나오는 조건에 대하여 다은 검토
+   ...
+   1값이 나오는 조건에 대하여 다은 검토
+   else
+   0 값을 부여
+
+이를 통해 카드패에 점수를 부여하여 Hands Variables에 대한 통계를 통한 카드패 예측 가능
+
+6) R을 통한 실습
+#train 데이터 전처리
+setwd("D:\Work\kaggle뽀개기\2015_05_poker\data")
+train <- read.csv("train.csv", header=T)
+head(train)
