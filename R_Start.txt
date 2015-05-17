@@ -1,0 +1,102 @@
+www.dbguide.com에서 R 무료 수강 가능함
+참조 사이트 : http://www.rexamples.com/11/Filtering%20data
+
+과목1. R 설치와 사용자 환경 
+1. R은 수리 분석용 언어
+- R의 설치와 작업공간 (Workspace)
+  . R의 설치
+    http://cran.r-project.org/ 사이트에서 Download R for Windows에서
+    R 3.2.0 for Windows를 설치한다.(32bit/64 혼용)
+    설치 디렉토리 : C:\Program Files\R\R-3.2.0
+    구성 요소 : Core Files, 32-bit Files(컴퓨터 환경 마다 다름)
+  . R Studio 설치(R의 GUI 환경(통합개발 환경)
+    http://www.rstudio.com/ 사이트에서 Desktop을 선택하여 설치 진행함
+    (http://www.rstudio.com/products/rstudio/download/)
+    RStudio Desktop 0.98.1103 버젼을 선택함
+    디렉토리 : C:\Program Files\RStudio
+  . 기본 사용
+    source ("xxx.r")을 수행하면 기본 함수들을 만들어 놓고 불려 쓸 수 있다.
+    10개의 random number 생성 : rnom(10)
+    > 1+2
+    > setwd("c:\Work")
+    > source("xxx.r") --> r 저장화면 가져 오기
+    > x = 1:10
+    > plot(x^2) --> x축이 1에서 10 변할때 제곱승 대한 y에 대한 그래프 보여줌
+    > abs(rnom(10)) --> random number에 대한 절대값 표시
+
+    * R-Studio에서 Ctrl-R을 통해 하나씩 수행 가능
+ . 편리한 기능
+   주석 : # 하나의 문장
+   화살표를 통하여 이전 문장 불려 드림
+   도움말 :  help.start(), help(seq), ?seq, RSiteSearch("lm")
+   이력 : history(), savehistory(file =  "history_150515.log")
+            loadhistory(file =  "history_150515.log")
+2. 입출력 
+ . 입력
+   source() 함수 사용
+   > source("myfile.R") #setwd()에 설정된 디렉토리의 script 파일의 적용(.R 또는 .r)
+ . 출력
+   출력결과를 화면에 표시
+   > lm(mpg~wt, data=mtcars) # mtcars 예제 데이터의 wt(무게)가 출력(mpg)에 영향까지 선형 분석
+   # 결과는 화면에 출력되지만 저장되지 않는다
+   # 출력 결과를 별도의 구조체 Object에 저장
+   > fit <- lm(mpg~wt, data=mtcars) # 선형 분석 결과를 fit 변수에 대입
+   # 화면에 저장되지 않는다
+   > str(fit) # fit 라는 변수의 저장된 값 표시
+  sink() 함수를 통하여 출력 방향을 특정 파일로 지정(redirect)
+  > sink("c:/Work/output.txt) # 출력을 특정 파일로 지정
+  > sink("c:/Work/output.txt, append=TRUE, split=TRUE) # 출력을 기존 파일에 추가, 화면에 동시 출력
+  그래프(plot, hist 등)에 대하여서는 
+  > pdf("mygraph.pdf") # 그래프 출력 결과를 저장함
+3. 팩키지
+  R 함수, 데이터 및 컴파일된 코드이 모음(5000 여개이 팩키지 제공)
+ . Package 추가
+  > install.packages("vcd") # Visualizing Categorical Data
+  > help(pakage="vcd") # 데이터를 저장하고 있는 팩키지
+  > library(vcd) # 라이브러리 명려을 통한 팩키지 사용
+  > help(Arthritis) # 관절염 임상 데이터
+  > Arthritis
+  > example(Arthritis) # 사용예
+4. 작업 시작환경의 Customization
+  R은 항상 Rprofile.site 파일을 먼저 수행
+  C:\Program Files\R\R-3.2.0\etc\Rprofile.sit
+  Rprofile.site 파일에는 2개의 함스를 지정 가능
+  .First() - R session 시작할 때 수행
+  .Last() - R session 종료할 때 수행
+5. Batch 처리
+  일괄처리 방식(non-interactively) 처리
+  R.exe가 있는 디렉토리(C:\Program Files\R\R-3.2.0\bin) Windows Path에 추가하여 "R xxx.r" 파일 형태로 수행함
+ . 끝내기
+  > q()
+- 결과의 재사용
+-------------------------------------------------------
+과목2. R에서의 데이터 관리
+- 데이터 입출력
+- 데이터 타입
+- 결측치와 날짜 데이터
+- 연산자 (Operators)
+- 내장 함수
+- 제어문
+- 사용자 작성 함수
+- 데이터의 정렬과 병합 (Merge)
+- apply() 함수
+-------------------------------------------------------
+과목3. R의 그래프 기초
+- R 그래프 개요
+- plot() 함수
+- 그래프 생성
+- 밀도 Plots
+- 점 (Dot) Plots
+- 막대 (Bar) Plots 
+- 선 도표 (Line Charts)
+- 파이 차트 (Pie Charts)
+- 상자 그림 (Boxplots)
+- Scatter Plots 
+-------------------------------------------------------
+과목4. R과 기초통계
+- 기본함수 (수학, 확률, 통계함수)
+- 기술통계 (記述統計)
+- 빈도수와 Crosstabs 
+- 상관관계
+-------------------------------------------------------
+과목5. 맺음말 
