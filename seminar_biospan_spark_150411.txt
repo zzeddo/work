@@ -1,0 +1,77 @@
+Enter file contents here바이오스핀의 모임 
+5회차: Python을 이용한 - 
+1. Spark 실습 
+2. RNA 2차 구조 그리기 
+3. TCGA RNA-Seq 차별 발현 유전자 분석
+
+김상우 비트윈 CEO 회사 창업하여 데이터 분석 업무를 수행하고 있음
+Spark 사용자 모임을 만들어 다양한 활동을 수행하고 있음.
+
+점차 Hadoop를 Spark으로 대체하는 분위기임(파일 시스템(HDFS)은 유지)
+
+1. Spark은 왜 유명해 지기 시작하였나(코난테크놀러지)
+GFS(Gooogle File System) 논문(2003년)이 시초임
+이를 구현한 오픈소스 프로젝트인 Hadoop HDFS이며 
+MapReduce 논문(2004년)을 통하여 Map-Reduce 연산을 병렬로 조합하여 큰 데이터 처리 가능하지며
+이를 기반한 오픈소스 프로젝트인 Hadoop MapReduce가 시작됨
+(데이터간 연관성이 없는 Problem Domain내에 데이터를 분산(Map)하여 처리(Redure) 수행)
+
+Hadoop 실습용으로 책의 word count을 Map/Reduce 수행하기 위해 Java 작성하면
+(코드가 무지 길어짐)
+Map클래스에서 단어(word)를 key-value 형태로 만들어
+Reduce 클래스에서 Map에서 만든 key-value을 더하여 결과를 산출함
+예를 들어 "나는 밥을 먹는다, 나는 잠을 잔다"에 대하여
+Map에서 (나는, 1), (밥을, 1), (먹는다, 1), (나는, 1), (잠을, 1), (잔다 1)로 하여
+Reduce에서 (나는, 2), (밥을, 1), (먹는다, 1), (잠을, 1), (잔다 1)로 산정한다.
+
+Hive는 MapReduce로 코드 작성하는 것이 힘들고 괴로우여, Query 형태로 제공함
+
+그렇게 10년이 지나오면서 아직도 MapReduce와 Hive를 많이 사용함
+
+Spark은 2013년도 개념이 나왔으며 2014년 1.0 버젼으로 출시됨
+핵심개념은 RDD(Resilient Distributed Dataset)이며 인터페이스는 Scala란 언어를 사용한다.
+(java와 python도 사용 가능함)
+Spak은 MapReduce를 대체하는 개념으로 
+MapReduce가 HDFS를 통하여 데이터 연산 하면서 과도한 Disk IO를 발생한다면
+Spark은 Memory를 통하여 데이터 연산 수행하여 성능이 개선됨
+(Hadoop에서 Memory Disk를 만들어 구동해도 Spark보다 성능이 떨어짐)
+
+Spark이 성능뿐만 아니라 Cluster 환경에서 안정성(Fault Tolerance) 확보가 가능하기 때문에
+Spark이 점차 대세가 되어 가고 있음
+
+Spark RDD(Resilient Distributed Dataset)는 안정성 확보(Fault Tolerance)의 핵심 개념으로
+데이터를 탄력적으로 분산된 데이터셋으로 구성하여 계보(Lineage)를 만들어 클러스터 중 일부 고장 발생시
+계보(Lineage)를 통하여 데이터를 복구하도록 함.
+
+Spark의 성능 비교(Logistic Regression, K-Means) 수행시 
+Logistic Regression의 경우 10개 이상, K-Means는 2~3배 이상 Spark의 성능이 뛰어 나다.
+
+Scala를 통하여 Word Count(앞의 Java 100줄)을 5줄이면 작성 가능하다.
+
+Spark가 연관된 프로젝트는 Spark SQL, Spark Streaming, MLLib(Machine Learing), GraphX, SparkR, Zeppelin.. 있다.
+
+Spark을 사용하면 수십대의 Cluster 서버를 10대로 줄일 수 있다.
+
+Spark와 Zeppelin을 통하여 대규모 데이터의 가시화된 분석과 Query 수행 가능하다.
+(https://zeppelin.incubator.apache.org/)
+Zeppelin을 설치하면 Interpreter 형태로 사용자가 Interactive하게 Query로 데이터 추출하고
+추출된 데이터에 대한 가시화(도표) 가능함.(빠른 데이터 탐색과 시각화)
+
+Spark 기반의 Zeppelin을 통하여, Hadoop에서 몇시간 걸리는 결과를 바로 확인하고 가시화 가능하다.
+
+
+# Spark 설치(Standalone)
+환경 : Windows 7, Spark Standalone deploy
+Java(1.6 이상)가 사전에 설치되어야 한다.
+http://www.oracle.com/technetwork/java/javase/downloads/index.html?ssSourceSiteId=ocomen
+Java 설치 후 환경 변수 설정(C:\Program Files\Java\jdk1.8.0_40\bin)
+사이트 : https://spark.apache.org/
+버젼 : 1.3.0
+Package Type : pre-built for Hadoop 1.x
+파일명 : spark-1.3.0-bin-hadoop1.tgz 
+빵집으로 압축을 푼다.(C:\spark-1.3)
+실행 파일 경로를 지정해 준다.(PATH = C:\spark-1.3\bin)
+도스창(cmd)에서 "spark-shell"실행한다.
+
+
+# Zepplin 설치(Standalone)
