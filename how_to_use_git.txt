@@ -1,0 +1,20 @@
+제목 : GitHub을 통한 Version Control
+Git이란 소스코드를 효과적으로 관리하기 위해 개발된 '분산형 버전 관리 시스템'
+
+1. 설치(Windows)
+ 오픈소스 Git 클라이언트 'TortoiseGit'과 언어팩 설치
+ http://code.google.com/p/tortoisegit/
+ - TortoiseGit 받기
+   Main > Download에서 32bit 혹은 64bit 선택(난 32bit)
+   설치시 "git.exe" 존재하지 않는 문제 발생
+   https://msysgit.github.io/ 사이트에서 git Download 후 설치
+ - Language Packs 받기
+   Korean, Korea
+
+2. 설정(TortoiseGit)
+ General> Lanaguage > 한국어
+ General> Git.exe Path : C:\Program Files\Git\bin
+
+3. Git Repository 만들기
+ c:\Work.git 폴더를 마우스 우클릭하여 "Git Repository 만들기" 수행
+ 
