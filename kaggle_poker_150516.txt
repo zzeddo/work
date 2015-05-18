@@ -87,3 +87,74 @@ R의 경우 대용량 데이터 처리의 제약으로 python을 더 많이 사�
 setwd("D:\Work\kaggle뽀개기\2015_05_poker\data")
 train <- read.csv("train.csv", header=T)
 head(train)
+-------------------------------------------
+
+제목 : [공유] 데이터 분석(Kaggle) 세미나 참석 후기
+
+지난주 토요일 Kaggle 데이터 분석하는 세미나 참석 후기 공유드립니다.
+(kaggle(www.kaggle.com)은 2008년부터 운영되는 사이트로 
+  매년 데이터 분석 대회를 개최하여 선정자에게 상금 및 다양한 해택을 제공하고 있음)
+
+기존에 실습시"R"을 사용했지만
+이번에는 "python"과 "R"을 혼용해서 사용하여 궁금했는데 
+R의 경우 데이터를 메모리상에서 처리하여 대용량 데이터 처리의 한계가 있지만
+python + spark의 경우 분산 메모리 환경에서 대용량 데이터 분석이 가능한 것을 알게 되었습니다.
+
+주제는 "Poker Rule Induction"(포커룰 학습룰)로 4개의 무늬(♠,♥, ◈, ♣)를 가지는 
+13개( (Ace, 2, 3, ... , Queen, King)의 카드에 대하여
+과거의 패(5개의 카드 조합과 점수(hands))의 데이터(25,010개)를 가지고 규칙(automatic rules induction)을 만들어 
+테스트 데이터(100만개) 결과를 예측하는 시합이였습니다.
+(https://www.kaggle.com/c/poker-rule-induction)
+
+* 포커의 규칙을 알고리즘으로 작성할 경우 실격 처리됨
+
+1. Poker Rule Induction
+- 핵심은 포커의 규칙을 5 Poker로 할때 포커를 해보지 않고 규칙을 모르는 외국인이라고 할때 
+   과거의 Poker 데이터(25,010개)를 가지고 기계학습을 통해 규칙을 추론하여 100만개 데이터에 적용하여 정확도에 따라 Ranking 부여됨
+- Training 데이터을 통하여 컴퓨터가 규칙을 생성하게 하고 포커의 결과(점수(Hands))를 예측하는 것이 목표
+- 실습 자료는 ipython Notebook과 R에서 수행할 수 있도록 제공함
+   - ipython : syleeie_poker_rule_introduction.ipynb
+   - R : syleeie_poker_rule_induction.Rmd
+
+2. kaggle Poker 데이터
+  과거 25,010 poker hands(포커패)을 통해 포커 규칙을 유추하는 목적(train.csv)
+  유추된 포커 규칙을 1,000,000 poker hands(test.csv)에 적용하여 포커패의 점수(hands) 산정함
+  Each hand consists of five cards with a given suit and rank, drawn from a standard deck of 52
+  (각 포커패는 5개의 카드로 구성되어 있으며, 표준 52개 포커 카드 사용)
+
+3. 데이터 소개(S1, C1, ..., S5, C5, Hands)
+- S1 “Suit of card #1”--> 4개의 카드 구성 : spades (♠), hearts (♥), diamonds (◈), clubs (♣)
+   Ordinal (1-4) representing {Hearts, Spades, Diamonds, Clubs}
+- C1 “Rank of card #1”--> 카드의 숫자
+   Numerical (1-13) representing (Ace, 2, 3, ... , Queen, King)
+- S5 “Suit of card #5”
+- C5 “Rank of card #5”
+
+5. Hands 변수 (카드패(5개) 점수 구성)  --> 과거의 데이터(25,010개)를 가지고 규칙을 추론해야 함
+ 0: Nothing in hand; not a recognized poker hand (아무 것도 아님)
+ 1: One pair; one pair of equal ranks within five cards(같은 숫자 2장)
+ 2: Two pairs; two pairs of equal ranks within five cards(같은 숫자 2장의 조합이 2개 나옴)
+ 3: Three of a kind; three equal ranks within five cards(3개의 숫자가 같음)
+ 4: Straight; five cards, sequentially ranked with no gaps(문양과는 상관없이 4장이 숫자 순서대로 나옴)
+ 5: Flush; five cards with the same suit(같은 문양)
+ 6: Full house; pair(같은 숫자 2개) + different rank three of a kind(같은 숫자 3개)
+ 7: Four of a kind; four equal ranks within five cards(5개 카드 중에서 4개가 동일)
+ 8: Straight flush; straight(연속되는 숫자) + flush(같은 문양)
+ 9: Royal flush; {Ace, King, Queen, Jack, Ten} + flush(같은 문양)
+
+6. 결론
+  kaggle 사이트에서 시합이 진행중이며, 
+  데이터 실습 과정에서는 Training 데이터(25,010개)를 통해 Random forest을 통해 모델을 만들어
+  테스트 데이터(100만개)에 대한 포커패의 점수(hands)를 산정하는 방식으로 수행함
+  (정확도는 60% 정도였으며, kaggle 사이트에는 100% 정확도를 가지는 경쟁자도 다수 있음)
+
+ * Random Forest
+Random Forest는 앙상블(Ensemble) 모델 중 하나이다. 데이터의 일부를 추출하여 의사 결정
+나무를 만드는 작업을 반복하고, 이렇게 만들어진 다수의 의사 결정 나무들의 투표(voting)로
+최종 결과를 출력한다. 또 각 가지를 나누는 변수를 선택할 때 전체 변수를 매번 모두 고려하
+는대신 변수의 일부를 임의로 선택하는 특징을 갖는다.
+
+* 세미나 교육 자료와 실습 자료 첨부 드립니다.
+
+  * Spark 설명 간단 설명 자료입니다.
+     http://engineering.vcnc.co.kr/2015/05/data-analysis-with-spark/
