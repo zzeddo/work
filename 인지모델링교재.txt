@@ -1,0 +1,9 @@
+Cognitive Modeling 
+
+인지 - The Oxford Handbook of Computational and Mathematical Psychology 
+- http://www.amazon.com/Handbook-Computational-Mathematical-Psychology-Library/dp/0199957991
+- http://her86.syhabooks.com/download/the-oxford-handbook-of-computational-and-mathematical-psychology-oxford-kqcpgjl.pdf
+
+베이지안 - Bayesian Cognitive Modeling 
+- http://www.amazon.com/Bayesian-Cognitive-Modeling-Practical-Course/dp/1107603579
+- https://webfiles.uci.edu/mdlee/LeeWagenmakers2013_Free.pdf
