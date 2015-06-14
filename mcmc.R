@@ -52,12 +52,11 @@ model {
 mydata = list(k=5, n=10)
 # 3. Start Values
 myinits = list(
-  theta = 0.1,
-  theta = 0.9
+  theta = 0.1
 )
 jags = jags.model(
   textConnection(modelString),
-  data = mydata, inits=myinits n.chains = 2, n.adapt= 20000)
+  data = mydata, inits=myinits, n.chains = 2, n.adapt= 20000)
 update(jags, 20000)
 mcmc_samples = coda.samples(jags, 
                             variable.names = c("theta", "k") , 
