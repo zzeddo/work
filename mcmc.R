@@ -244,3 +244,59 @@ samples.mcmc <- as.mcmc(samples)
 # then use the plotting methods from coda:
 plot(samples.mcmc)
 densityplot(samples.mcmc)
+###########################
+# 3.2 Difference between two rates (JAGS)
+###########################
+# clears workspace:  
+rm(list=ls()) 
+
+#JARS
+library(rjags)
+# 1. Model
+modelString = "
+model {
+  # Observed Counts
+  theta1 ~ dbeta(1, 1)
+  theta2 ~ dbeta(1, 1)
+  # Prior on Rates
+  k1 ~ dbin(theta1, n1)
+  k2 ~ dbin(theta2, n2)
+  # Difference Between Rates 
+  delta <- theta1-theta2
+}"
+# 2. Data
+mydata = list(k1=5, n1=10, k2=7, n2=10)
+
+# 3. Start Values
+myinits = list(
+  list(theta1 = 0.1, theta2 = 0.9)
+)
+
+# 4. Paramters to be monitored
+parameter = c("delta", "theta1", "theta2")
+
+jags = jags.model(
+  textConnection(modelString),
+  data = mydata, inits = myinits, 
+  n.chains = 1, n.adapt= 10000)
+update(jags, 10000)
+mcmc_samples = coda.samples(jags, 
+                            variable.names = parameter , 
+                            n.iter=10000)
+
+summary(mcmc_samples)$stat
+summary(mcmc_samples)$quant
+summary(mcmc_samples)
+plot(mcmc_samples, font.main=4)
+
+# Collect posterior samples across all chains:
+
+delta <- mcmc_samples[,1]
+summary(delta)
+plot(delta)
+theta1 <- mcmc_samples[,2]
+summary(theta1)
+plot(theta1)
+theta2 <- mcmc_samples[,3]
+summary(theta2)
+plot(theta2)
