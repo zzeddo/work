@@ -307,6 +307,7 @@ plot(theta2)
 rm(list=ls()) 
 
 #JARS
+#install.packages("R2jags")
 library(R2jags)
 
 # 1. Model
@@ -335,12 +336,19 @@ parameter = c("delta", "theta1", "theta2")
 # The following command calls JAGS with specific options.
 # For a detailed description see the R2jags documentation.
 mcmc_samples <- jags(mydata, inits=myinits, parameter,
-                model.file =textConnection(modelString), n.chains=1, n.iter=10000, 
-                n.burnin=1, n.thin=1, DIC=T)
+                     model.file =textConnection(modelString), n.chains=1, n.iter=10000, 
+                     n.burnin=1, n.thin=1, DIC=T)
+
+#95% credibility probability
+mcmc_samples$summary
+#mymat <- mcmc_samples$BUGSoutput$sims.array[,,"delta"]
 
 # Collect posterior samples:
+names(mcmc_samples$BUGSoutput$sims.list)
 delta <- mcmc_samples$BUGSoutput$sims.list$delta
-#plot(delta)
+theta1 <- mcmc_samples$BUGSoutput$sims.list$theta1
+theta2 <- mcmc_samples$BUGSoutput$sims.list$theta2
+
 summary(delta)
 # mean of delta:
 mean(delta)
@@ -350,6 +358,24 @@ median(delta)
 density(delta)$x[which(density(delta)$y==max(density(delta)$y))]
 # 95% credible interval for delta:
 quantile(delta, c(.025,.975))
+
+# Graph
+par(mfrow=c(3,2))
+plot(delta, main='Posterior trace',xlab='iteration', col='blue', lwd=1)
+plot(density(delta), main='Posterior distribution',xlab='delta', col='skyblue', lwd=2)
+plot(theta1, main='Posterior trace',xlab='iteration', col='blue', lwd=1)
+plot(density(theta1), main='Posterior distribution',xlab='delta', col='skyblue', lwd=2)
+plot(theta2, main='Posterior trace',xlab='iteration', col='blue', lwd=1)
+plot(density(theta2), main='Posterior distribution',xlab='delta', col='skyblue', lwd=2)
+
+#Graph Mapping
+par(mfrow=c(1,1))
+plot(density(delta), main='Posterior distribution', xlab ='Distributoin', xlim=c(-1,1),ylim=c(0,5), lty=1, col='1')
+par(new=TRUE)
+plot(density(theta1),xlim=c(-1,1),ylim=c(0,5), main="", xlab ="", ylab="",axes=FALSE,lty=2, col='2')
+par(new=TRUE)
+plot(density(theta2),xlim=c(-1,1),ylim=c(0,5), main="", xlab ="", ylab="",axes=FALSE, lty=3, col='3')
+legend(0.5,5,legend=c("delta","theta1", "theta2"), lty=1:3, col=1:3)
 
 # Now let's plot a histogram for delta. 
 # First, some options to make the plot look better:
