@@ -245,6 +245,71 @@ samples.mcmc <- as.mcmc(samples)
 plot(samples.mcmc)
 densityplot(samples.mcmc)
 ###########################
+# 3.1 Inferring a rate (R2jags)
+###########################
+# clears workspace:  
+rm(list=ls()) 
+
+#JARS
+#install.packages("R2jags")
+library(R2jags)
+
+# 1. Model
+modelString = "
+model {
+# Observed Counts
+theta ~ dbeta(1, 1)
+# Prior on Rates
+k ~ dbin(theta, n)
+}"
+# 2. Data
+mydata = list(k=5, n=10)
+
+# 3. Start Values
+myinits = list(
+  list(theta = 0.1), #chain 1 starting value
+  list(theta = 0.9) #chain 2 starting value
+)
+
+# 4. Paramters to be monitored
+parameters = c("theta")
+
+# The following command calls JAGS with specific options.
+# For a detailed description see the R2jags documentation.
+mcmc_samples <- jags(mydata, inits=myinits, parameters,
+                     model.file =textConnection(modelString), n.chains=2, n.iter=10000, 
+                     n.burnin=1, n.thin=1, DIC=T)
+
+# Collect posterior samples:
+names(mcmc_samples$BUGSoutput$sims.list)
+theta <- mcmc_samples$BUGSoutput$sims.list$theta
+
+summary(theta)
+# mean of delta:
+mean(theta)
+# median of delta:
+median(theta)
+# mode of delta, estimated from the "density" smoother:
+density(theta)$x[which(density(theta)$y==max(density(theta)$y))]
+#95% credibility probability
+quantile(theta, c(.025,.975))
+
+# Graph
+par(mfrow=c(1,2))
+plot(theta, main='Posterior trace',xlab='iteration', col='blue', lwd=1)
+plot(density(theta), main='Posterior distribution',xlab='theta', col='skyblue', lwd=2)
+
+# Now let's plot a histogram for theta 
+# First, some options to make the plot look better:
+par(mfrow=c(1,1))
+par(cex.main = 1.5, mar = c(5, 6, 4, 5) + 0.1, mgp = c(3.5, 1, 0), cex.lab = 1.5,
+    font.lab = 2, cex.axis = 1.3, bty = "n", las=1)
+Nbreaks <- 80
+y       <- hist(theta, Nbreaks, plot=F)
+plot(c(y$breaks, max(y$breaks)), c(0,y$density,0), type="S", lwd=2, lty=1,
+     xlim=c(0,1), ylim=c(0,3), xlab="Difference in Rates", ylab="Posterior Density") 
+
+###########################
 # 3.2 Difference between two rates (JAGS)
 ###########################
 # clears workspace:  
@@ -300,6 +365,7 @@ plot(theta1)
 theta2 <- mcmc_samples[,3]
 summary(theta2)
 plot(theta2)
+
 ###########################
 # 3.2 Difference between two rates (R2jags)
 ###########################
@@ -385,3 +451,281 @@ Nbreaks <- 80
 y       <- hist(delta, Nbreaks, plot=F)
 plot(c(y$breaks, max(y$breaks)), c(0,y$density,0), type="S", lwd=2, lty=1,
      xlim=c(-1,1), ylim=c(0,4), xlab="Difference in Rates", ylab="Posterior Density") 
+
+###########################
+# 3.3 Inferring a common rate (R2jags)
+###########################
+# clears workspace:  
+rm(list=ls()) 
+
+#JARS
+library(R2jags)
+
+# 1. Model
+modelString = "
+model {
+# Observed Counts
+k1 ~ dbin(theta, n1)
+k2 ~ dbin(theta, n2)
+# Prior on Single Rate Theta
+theta ~ dbeta(1, 1)
+}"
+# 2. Data
+mydata = list(k1=5, n1=10, k2=7, n2=10)
+
+# 3. Start Values
+myinits = list(
+  list(theta1 =0.5)
+)
+
+# 4. Paramters to be monitored
+parameters = c("theta")
+
+# The following command calls JAGS with specific options.
+# For a detailed description see the R2jags documentation.
+mcmc_samples <- jags(mydata, inits=myinits, parameters,
+                     model.file =textConnection(modelString), n.chains=1, n.iter=1000, 
+                     n.burnin=1, n.thin=1, DIC=T)
+theta <- mcmc_samples$BUGSoutput$sims.list$theta
+
+#95% credibility probability
+
+summary(theta)
+# mean of delta:
+mean(theta)
+# median of delta:
+median(theta)
+# mode of delta, estimated from the "density" smoother:
+density(theta)$x[which(density(theta)$y==max(density(theta)$y))]
+#95% credibility probability
+quantile(theta, c(.025,.975))
+
+# Graph
+par(mfrow=c(1,2))
+plot(theta, main='Posterior trace',xlab='iteration', col='blue', lwd=1)
+plot(density(theta), main='Posterior distribution',xlab='theta', col='skyblue', lwd=2)
+
+###########################
+# 3.3 Inferring a common rate (R2jags)
+# Exercise 3.3.1 : k1=14, n1=20, k2=16, n2=20
+###########################
+# clears workspace:  
+rm(list=ls()) 
+
+#JARS
+library(R2jags)
+
+# 1. Model
+modelString = "
+model {
+# Observed Counts
+k1 ~ dbin(theta, n1)
+k2 ~ dbin(theta, n2)
+# Prior on Single Rate Theta
+theta ~ dbeta(1, 1)
+}"
+# 2. Data
+mydata = list(k1=14, n1=20, k2=16, n2=20)
+
+# 3. Start Values
+myinits = list(
+  list(theta1 =0.5)
+)
+
+# 4. Paramters to be monitored
+parameters = c("theta")
+
+# The following command calls JAGS with specific options.
+# For a detailed description see the R2jags documentation.
+mcmc_samples <- jags(mydata, inits=myinits, parameters,
+                     model.file =textConnection(modelString), n.chains=1, n.iter=1000, 
+                     n.burnin=1, n.thin=1, DIC=T)
+theta <- mcmc_samples$BUGSoutput$sims.list$theta
+
+#95% credibility probability
+
+summary(theta)
+# mean of delta:
+mean(theta)
+# median of delta:
+median(theta)
+# mode of delta, estimated from the "density" smoother:
+density(theta)$x[which(density(theta)$y==max(density(theta)$y))]
+#95% credibility probability
+quantile(theta, c(.025,.975))
+
+# Graph
+par(mfrow=c(1,2))
+plot(theta, main='Posterior trace',xlab='iteration', col='blue', lwd=1)
+plot(density(theta), main='Posterior distribution',xlab='theta', col='skyblue', lwd=2)
+
+###########################
+# 3.3 Inferring a common rate (R2jags)
+# Exercise 3.3.2 : k1=0, n1=10, k2=10, n2=10
+###########################
+# clears workspace:  
+rm(list=ls()) 
+
+#JARS
+library(R2jags)
+
+# 1. Model
+modelString = "
+model {
+# Observed Counts
+k1 ~ dbin(theta, n1)
+k2 ~ dbin(theta, n2)
+# Prior on Single Rate Theta
+theta ~ dbeta(1, 1)
+}"
+# 2. Data
+mydata = list(k1=0, n1=10, k2=10, n2=10)
+
+# 3. Start Values
+myinits = list(
+  list(theta1 =0.5)
+)
+
+# 4. Paramters to be monitored
+parameters = c("theta")
+
+# The following command calls JAGS with specific options.
+# For a detailed description see the R2jags documentation.
+mcmc_samples <- jags(mydata, inits=myinits, parameters,
+                     model.file =textConnection(modelString), n.chains=1, n.iter=1000, 
+                     n.burnin=1, n.thin=1, DIC=T)
+theta <- mcmc_samples$BUGSoutput$sims.list$theta
+
+#95% credibility probability
+
+summary(theta)
+# mean of delta:
+mean(theta)
+# median of delta:
+median(theta)
+# mode of delta, estimated from the "density" smoother:
+density(theta)$x[which(density(theta)$y==max(density(theta)$y))]
+#95% credibility probability
+quantile(theta, c(.025,.975))
+
+# Graph
+par(mfrow=c(1,2))
+plot(theta, main='Posterior trace',xlab='iteration', col='blue', lwd=1)
+plot(density(theta), main='Posterior distribution',xlab='theta', col='skyblue', lwd=2)
+
+###########################
+# 3.3 Inferring a common rate (R2jags)
+# Exercise 3.3.3 : Compare the CASE1, CASE2
+# CASE 1 : k1=7, n1=10, k2=3, n2=10
+# CASE 2 : k1=5, n1=10, k2=5, n2=10
+###########################
+# clears workspace:  
+rm(list=ls()) 
+
+#JARS
+library(R2jags)
+
+# 1. Model
+modelString = "
+model {
+# Observed Counts
+k1 ~ dbin(theta, n1)
+k2 ~ dbin(theta, n2)
+# Prior on Single Rate Theta
+theta ~ dbeta(1, 1)
+}"
+# 2. Data
+mydata1 = list(k1=3, n1=10, k2=7, n2=10)
+mydata2 = list(k1=5, n1=10, k2=5, n2=10)
+
+# 3. Start Values
+myinits = list(
+  list(theta =0.5)
+)
+
+# 4. Paramters to be monitored
+parameters = c("theta")
+
+# The following command calls JAGS with specific options.
+# For a detailed description see the R2jags documentation.
+mcmc_samples1 <- jags(mydata1, inits=myinits, parameters,
+                     model.file =textConnection(modelString), n.chains=1, n.iter=1000, 
+                     n.burnin=1, n.thin=1, DIC=T)
+
+mcmc_samples2 <- jags(mydata2, inits=myinits, parameters,
+                      model.file =textConnection(modelString), n.chains=1, n.iter=1000, 
+                      n.burnin=1, n.thin=1, DIC=T)
+theta1 <- mcmc_samples1$BUGSoutput$sims.list$theta
+theta2 <- mcmc_samples2$BUGSoutput$sims.list$theta
+
+# Summary
+cbind(summary(theta1), summary(theta2))
+#95% credibility probability
+cbind(quantile(theta1, c(.025,.975)), quantile(theta2, c(.025,.975)))
+
+# Graph
+par(mfrow=c(2,2))
+plot(theta1, main='Posterior trace',xlab='iteration', col='blue', lwd=1)
+plot(density(theta1), main='Posterior distribution',xlab='theta1', col='skyblue', lwd=2)
+plot(theta2, main='Posterior trace',xlab='iteration', col='blue', lwd=1)
+plot(density(theta1), main='Posterior distribution',xlab='theta2', col='skyblue', lwd=2)
+
+#Graph Mapping
+par(mfrow=c(1,1))
+plot(density(theta1), main='Posterior distribution', xlab ='Distributoin', xlim=c(0,1),ylim=c(0,4), lty=1, col='1')
+par(new=TRUE)
+plot(density(theta2),xlim=c(0,1),ylim=c(0,4), main="", xlab ="", ylab="",axes=FALSE,lty=2, col='2')
+legend(0,3,legend=c("theta1", "theta2"), lty=1:2, col=1:2)
+
+###########################
+# 3.4 Prior and posterior prediction (R2jags)
+###########################
+# clears workspace:  
+rm(list=ls()) 
+
+#JARS
+library(R2jags)
+
+# 1. Model
+modelString = "
+model {
+# Observed Counts
+k1 ~ dbin(theta, n1)
+k2 ~ dbin(theta, n2)
+# Prior on Single Rate Theta
+theta ~ dbeta(1, 1)
+}"
+# 2. Data
+mydata = list(k1=0, n1=10, k2=10, n2=10)
+
+# 3. Start Values
+myinits = list(
+  list(theta1 =0.5)
+)
+
+# 4. Paramters to be monitored
+parameters = c("theta")
+
+# The following command calls JAGS with specific options.
+# For a detailed description see the R2jags documentation.
+mcmc_samples <- jags(mydata, inits=myinits, parameters,
+                     model.file =textConnection(modelString), n.chains=1, n.iter=1000, 
+                     n.burnin=1, n.thin=1, DIC=T)
+theta <- mcmc_samples$BUGSoutput$sims.list$theta
+
+#95% credibility probability
+
+summary(theta)
+# mean of delta:
+mean(theta)
+# median of delta:
+median(theta)
+# mode of delta, estimated from the "density" smoother:
+density(theta)$x[which(density(theta)$y==max(density(theta)$y))]
+#95% credibility probability
+quantile(theta, c(.025,.975))
+
+# Graph
+par(mfrow=c(1,2))
+plot(theta, main='Posterior trace',xlab='iteration', col='blue', lwd=1)
+plot(density(theta), main='Posterior distribution',xlab='theta', col='skyblue', lwd=2)
