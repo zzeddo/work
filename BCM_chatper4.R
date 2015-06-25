@@ -64,9 +64,26 @@ counts <- table(mtcars$vs, mtcars$gear)
 barplot(counts, main="Car Distribution by Gears and VS",
         xlab="Number of Gears", col=c("darkblue","red"),
         legend = c("V Engine","Straight"), beside=TRUE)
-##############################
-# 4 Inference with Gaussians
-##############################
+
+# Probability
+#Mutually exclusive – not overlap
+#    P(E OR F) = P(E) + P(F)
+#Overlap of elementary outcomes
+#    P(E OR F) = P(E) + P(F) – P(E AND F)
+#When P(NOT E) is easier to compute use subtraction rule.
+#    P(E) = 1 – P(NOT E)
+#Conditional Probability
+#  The “probability of A, given C”
+#     P(E|F) = P(E AND F)/P(F)
+#  When E and F are mutually exclusive
+#     P(E|F) = 0, once F has occurred E is impossible
+# Rearranging the definition get multiplication rule
+#     P(E AND F) = P(E|F)P(F)
+# Independence
+# Two events E and F are independent of each other if the occurrence of one had no influence on the probability of the other.
+#   P(E AND F) = P(E)P(F)
+
+
 # http://www.r-tutor.com/elementary-statistics/probability-distributions
 help("distribution")
 # Uniform Distribution
@@ -78,14 +95,6 @@ summary(theta)
 par(mfrow=c(1,2))
 plot(theta, main='Uniform trace',xlab='iteration', col='blue', lwd=1)
 plot(density(theta), main='Uniform distribution',xlab='theta', col='skyblue', lwd=2)
-
-# Beta Distribution
-#theta = dbeta(1:100,1,1)
-theta = rbeta(1000,1,1)
-summary(theta)
-par(mfrow=c(1,2))
-plot(theta, main='Beta trace',xlab='iteration', col='blue', lwd=1)
-plot(density(theta), main='Beta distribution',xlab='theta', col='skyblue', lwd=2)
 
 # Normal Distribution
 # f(x) = 1/(√(2 π) σ) e^-((x - μ)^2/(2 σ^2)) 
@@ -108,6 +117,35 @@ plot(density(height))
 hist(height, breaks=20, probability=TRUE)    # 사진1
 hist(height, breaks=100, probability=TRUE)   # 사진2
 hist(height, breaks=300, probability=TRUE)   # 더욱 더 확률밀도 함수에 가까운 히스토그램
+
+
+# Beta Distribution
+#theta = dbeta(1:100,1,1)
+theta = rbeta(1000,1,1)
+summary(theta)
+par(mfrow=c(1,2))
+plot(theta, main='Beta trace',xlab='iteration', col='blue', lwd=1)
+plot(density(theta), main='Beta distribution',xlab='theta', col='skyblue', lwd=2)
+
+# The Poisson Distribution
+# 정해진 시간 안에 어떤 사건이 일어날 횟수에 대한 기댓값을 λ(lambda)라고 했을 때, 그 사건이 x회 일어날 확률
+# p(x) = λ^x exp(-λ)/x!
+# for x = 0, 1, 2, … . The mean and variance are E(X) = Var(X) = λ. 
+#theta = rpois(n=1000, lambda=10)
+theta = dpois(0:10, lambda = 1)
+theta[3]
+summary(theta)
+par(mfrow=c(1,2))
+plot(theta, main='Poisson trace',xlab='iteration', col='blue', lwd=1)
+plot(density(theta), main='Poisson distribution',xlab='theta', col='skyblue', lwd=2)
+
+# Log-Normal Distribution
+?dbinom
+
+##############################
+# 4.1 Inference a mean and standard deviation
+##############################
+
 
 ###########################################################################
 # Reference
