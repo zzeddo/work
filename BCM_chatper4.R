@@ -66,14 +66,14 @@ barplot(counts, main="Car Distribution by Gears and VS",
         legend = c("V Engine","Straight"), beside=TRUE)
 
 # Probability
-#Mutually exclusive – not overlap
+#Mutually exclusive ?? not overlap
 #    P(E OR F) = P(E) + P(F)
 #Overlap of elementary outcomes
-#    P(E OR F) = P(E) + P(F) – P(E AND F)
+#    P(E OR F) = P(E) + P(F) ?? P(E AND F)
 #When P(NOT E) is easier to compute use subtraction rule.
-#    P(E) = 1 – P(NOT E)
+#    P(E) = 1 ?? P(NOT E)
 #Conditional Probability
-#  The “probability of A, given C”
+#  The ?쐏robability of A, given C??
 #     P(E|F) = P(E AND F)/P(F)
 #  When E and F are mutually exclusive
 #     P(E|F) = 0, once F has occurred E is impossible
@@ -106,8 +106,8 @@ plot(theta, main='Uniform trace',xlab='iteration', col='blue', lwd=1)
 plot(density(theta), main='Uniform distribution',xlab='theta', col='skyblue', lwd=2)
 
 # Normal Distribution
-# f(x) = 1/(√(2 π) σ) e^-((x - μ)^2/(2 σ^2)) 
-theta = rnorm(n=1000, mean=0, sd=5)   # 데이터 생성
+# f(x) = 1/(?닖(2 ?) ??) e^-((x - 關)^2/(2 ??^2)) 
+theta = rnorm(n=1000, mean=0, sd=5)   # ?뜲?씠?꽣 ?깮?꽦
 summary(theta)
 par(mfrow=c(1,2))
 plot(theta, main='Normal trace',xlab='iteration', col='blue', lwd=1)
@@ -119,12 +119,12 @@ pnorm(10, mean=0, sd=5) - pnorm(-10, mean=0, sd=5) # 95% of the values are withi
 pnorm(15, mean=0, sd=5) - pnorm(-15, mean=0, sd=5) # 99.7% of the values are within 3 standard deviation 
 
 
-# 평균키가 175이고 표준편차가 5인 사람들에 대한 변수 생성하고 Graph 
-height=rnorm(n=10000,mean = 175, sd=5)   # 데이터 생성
+# ?룊洹좏궎媛 175?씠怨? ?몴以?렪李④? 5?씤 ?궗?엺?뱾?뿉 ???븳 蹂?닔 ?깮?꽦?븯怨? Graph 
+height=rnorm(n=10000,mean = 175, sd=5)   # ?뜲?씠?꽣 ?깮?꽦
 plot(density(height))
-hist(height, breaks=20, probability=TRUE)    # 사진1
-hist(height, breaks=100, probability=TRUE)   # 사진2
-hist(height, breaks=300, probability=TRUE)   # 더욱 더 확률밀도 함수에 가까운 히스토그램
+hist(height, breaks=20, probability=TRUE)    # ?궗吏?1
+hist(height, breaks=100, probability=TRUE)   # ?궗吏?2
+hist(height, breaks=300, probability=TRUE)   # ?뜑?슧 ?뜑 ?솗瑜좊??룄 ?븿?닔?뿉 媛源뚯슫 ?엳?뒪?넗洹몃옩
 
 
 # Beta Distribution
@@ -136,9 +136,9 @@ plot(theta, main='Beta trace',xlab='iteration', col='blue', lwd=1)
 plot(density(theta), main='Beta distribution',xlab='theta', col='skyblue', lwd=2)
 
 # The Poisson Distribution
-# 정해진 시간 안에 어떤 사건이 일어날 횟수에 대한 기댓값을 λ(lambda)라고 했을 때, 그 사건이 x회 일어날 확률
-# p(x) = λ^x exp(-λ)/x!
-# for x = 0, 1, 2, … . The mean and variance are E(X) = Var(X) = λ. 
+# ?젙?빐吏? ?떆媛? ?븞?뿉 ?뼱?뼡 ?궗嫄댁씠 ?씪?뼱?궇 ?슏?닔?뿉 ???븳 湲곕뙎媛믪쓣 貫(lambda)?씪怨? ?뻽?쓣 ?븣, 洹? ?궗嫄댁씠 x?쉶 ?씪?뼱?궇 ?솗瑜?
+# p(x) = 貫^x exp(-貫)/x!
+# for x = 0, 1, 2, ?? . The mean and variance are E(X) = Var(X) = 貫. 
 #theta = rpois(n=1000, lambda=10)
 theta = dpois(0:10, lambda = 1)
 theta[3]
@@ -148,9 +148,9 @@ plot(theta, main='Poisson trace',xlab='iteration', col='blue', lwd=1)
 plot(density(theta), main='Poisson distribution',xlab='theta', col='skyblue', lwd=2)
 
 # Gamma Distribution
-#  연속 확률분포로, 두 개의 매개변수를 받으며 양의 실수를 가질 수 있다.
+#  ?뿰?냽 ?솗瑜좊텇?룷濡?, ?몢 媛쒖쓽 留ㅺ컻蹂?닔瑜? 諛쏆쑝硫? ?뼇?쓽 ?떎?닔瑜? 媛吏? ?닔 ?엳?떎.
 ? dgamma
-theta = rgamma(1000, shape=0.001, scale=0.001)
+theta = rgamma(1000, shape=0, scale=0)
 summary(theta)
 par(mfrow=c(1,2))
 plot(theta, main='Gamma trace',xlab='iteration', col='blue', lwd=1)
@@ -388,7 +388,8 @@ plot(sigma, main='standard deviation trace',xlab='iteration', col='blue', lwd=1)
 plot(density(sigma), main='standard deviation distribution',xlab='sigma', col='skyblue', lwd=2)
 
 ##############################
-# 4.1 The seven scientiests
+# 4.2 The seven scientiests
+# lambda[i] ~ dgamma(.001,.001)
 ##############################
 # clears workspace:  
 rm(list=ls()) 
@@ -448,6 +449,70 @@ plot(sigma[,1], main='standard deviation 1 trace',xlab='iteration', col='blue', 
 plot(sigma[,2], main='standard deviation 2 trace',xlab='iteration', col='blue', lwd=1)
 plot(sigma[,3], main='standard deviation 3 trace',xlab='iteration', col='blue', lwd=1)
 plot(density(sigma), main='standard deviation distribution',xlab='sigma', col='skyblue', lwd=2)
+
+##############################
+# 4.2 The seven scientiests
+# lambda[i] ~ dgamma(1, 1)
+##############################
+# clears workspace:  
+rm(list=ls()) 
+sqrt(1/0.001)
+#JARS
+library(R2jags)
+
+# Prior and Posterior Prediction
+# 1. Model
+modelString = "
+# The Seven Scientists
+model{
+# Data Come From Gaussians With Common Mean But Different Precisions
+for (i in 1:n){
+x[i] ~ dnorm(mu,lambda[i])
+}
+# Priors
+mu ~ dnorm(0,0.001)
+for (i in 1:n){
+lambda[i] ~ dgamma(1, 1)
+sigma[i] <- 1/sqrt(lambda[i])  
+}     
+}"
+
+# 2. Data
+x <- c(-27.020,3.570,8.191,9.898,9.603,9.945,10.056)
+n <- length(x)
+
+mydata = list("x", "n")
+
+# 3. Start Values
+myinits = list(
+  list(mu =0, lambda = rep(1,n))
+)
+
+# 4. Paramters to be monitored
+parameters = c("mu", "sigma","x")
+
+# The following command calls JAGS with specific options.
+# For a detailed description see the R2jags documentation.
+mcmc_samples <- jags(mydata, inits=myinits, parameters,
+                     model.file =textConnection(modelString), n.chains=1, n.iter=1000, 
+                     n.burnin=1, n.thin=1, DIC=T)
+# Now the values for the monitored parameters are in the "samples" object, 
+# ready for inspection.
+x <- mcmc_samples$BUGSoutput$sims.list$x
+mu <- mcmc_samples$BUGSoutput$sims.list$mu
+sigma <- mcmc_samples$BUGSoutput$sims.list$sigma
+summary(mu)
+summary(sigma)
+
+# Graph
+par(mfrow=c(3,2))
+plot(mu, main='mean trace',xlab='iteration', col='blue', lwd=1)
+plot(density(mu), main='mean distribution',xlab='mu', col='skyblue', lwd=2)
+plot(sigma[,1], main='standard deviation 1 trace',xlab='iteration', col='blue', lwd=1)
+plot(sigma[,2], main='standard deviation 2 trace',xlab='iteration', col='blue', lwd=1)
+plot(sigma[,3], main='standard deviation 3 trace',xlab='iteration', col='blue', lwd=1)
+plot(density(sigma), main='standard deviation distribution',xlab='sigma', col='skyblue', lwd=2)
+
 ##############################
 # 4.1 The seven scientiests
 # 4.2.1 Draw posterior samples
@@ -525,29 +590,29 @@ plot(density(sigma[,7]), main='sd 7 distribution',xlab='sigma', col='skyblue', l
 ##############################
 # 4.1 The seven scientiests
 # 4.2.2 Change gamma to uniform(prior over the standard deviation)
+# sigma ~ Uniform(0,10)
 ##############################
 # clears workspace:  
 rm(list=ls()) 
 
 #JARS
+# install.packages("R2jags")
 library(R2jags)
-
 # Prior and Posterior Prediction
 # 1. Model
 modelString = "
 # The Seven Scientists
 model{
-# Data Come From Gaussians With Common Mean But Different Precisions
-for (i in 1:n){
-x[i] ~ dnorm(mu,lambda[i])
-}
-# Priors
-mu ~ dnorm(0,0.001)
-for (i in 1:n){
-lambda[i] ~ 1/pow(sigma[i],2)
-sigma[i] <- dunif(0, 10)
-1/sqrt(lambda[i])  
-}     
+  # Data Come From Gaussians With Common Mean But Different Precisions
+  for (i in 1:n){
+    x[i] ~ dnorm(mu,lambda[i])
+  }
+  # Priors
+  mu ~ dnorm(0,.001)
+  for (i in 1:n){
+    sigma[i] ~ dunif(0, 10)  
+    lambda[i] <- 1/pow(sigma[i],2)
+  }     
 }"
 
 # 2. Data
@@ -558,7 +623,7 @@ mydata = list("x", "n")
 
 # 3. Start Values
 myinits = list(
-  list(mu =0, lambda = rep(1,n))
+  list(mu =0, sigma = rep(1,n))
 )
 
 # 4. Paramters to be monitored
@@ -577,6 +642,7 @@ sigma <- mcmc_samples$BUGSoutput$sims.list$sigma
 lambda <- mcmc_samples$BUGSoutput$sims.list$lambda
 summary(mu)
 summary(sigma)
+summary(lambda)
 
 # Graph
 par(mfrow=c(3,2))
@@ -585,6 +651,366 @@ plot(density(mu), main='mean distribution',xlab='mu', col='skyblue', lwd=2)
 plot(sigma[,1], main='standard deviation 1 trace',xlab='iteration', col='blue', lwd=1)
 plot(sigma[,2], main='standard deviation 2 trace',xlab='iteration', col='blue', lwd=1)
 plot(sigma[,3], main='standard deviation 3 trace',xlab='iteration', col='blue', lwd=1)
+plot(density(sigma), main='standard deviation distribution',xlab='sigma', col='skyblue', lwd=2)
+
+##############################
+# 4.1 The seven scientiests
+# 4.2.2 Change gamma to uniform(prior over the standard deviation)
+# sigma ~ Uniform(0,100)
+##############################
+# clears workspace:  
+rm(list=ls()) 
+
+#JARS
+# install.packages("R2jags")
+library(R2jags)
+# Prior and Posterior Prediction
+# 1. Model
+modelString = "
+# The Seven Scientists
+model{
+# Data Come From Gaussians With Common Mean But Different Precisions
+for (i in 1:n){
+x[i] ~ dnorm(mu,lambda[i])
+}
+# Priors
+mu ~ dnorm(0,.001)
+for (i in 1:n){
+sigma[i] ~ dunif(0, 100)  
+lambda[i] <- 1/pow(sigma[i],2)
+}     
+}"
+
+# 2. Data
+x <- c(-27.020,3.570,8.191,9.898,9.603,9.945,10.056)
+n <- length(x)
+
+mydata = list("x", "n")
+
+# 3. Start Values
+myinits = list(
+  list(mu =0, sigma = rep(1,n))
+)
+
+# 4. Paramters to be monitored
+parameters = c("mu", "sigma","lambda", "x")
+
+# The following command calls JAGS with specific options.
+# For a detailed description see the R2jags documentation.
+mcmc_samples <- jags(mydata, inits=myinits, parameters,
+                     model.file =textConnection(modelString), n.chains=1, n.iter=1000, 
+                     n.burnin=1, n.thin=1, DIC=T)
+# Now the values for the monitored parameters are in the "samples" object, 
+# ready for inspection.
+x <- mcmc_samples$BUGSoutput$sims.list$x
+mu <- mcmc_samples$BUGSoutput$sims.list$mu
+sigma <- mcmc_samples$BUGSoutput$sims.list$sigma
+lambda <- mcmc_samples$BUGSoutput$sims.list$lambda
+summary(mu)
+summary(sigma)
+summary(lambda)
+
+# Graph
+par(mfrow=c(3,2))
+plot(mu, main='mean trace',xlab='iteration', col='blue', lwd=1)
+plot(density(mu), main='mean distribution',xlab='mu', col='skyblue', lwd=2)
+plot(sigma[,1], main='standard deviation 1 trace',xlab='iteration', col='blue', lwd=1)
+plot(sigma[,2], main='standard deviation 2 trace',xlab='iteration', col='blue', lwd=1)
+plot(sigma[,3], main='standard deviation 3 trace',xlab='iteration', col='blue', lwd=1)
+plot(density(sigma), main='standard deviation distribution',xlab='sigma', col='skyblue', lwd=2)
+
+##############################
+# 4.3 Repeated mesurement of IQ
+#   sigma ~ dunif(0,100)
+#   mu[i] ~ dunif(0,300)
+##############################
+# clears workspace:  
+rm(list=ls()) 
+
+#JARS
+# install.packages("R2jags")
+library(R2jags)
+# Prior and Posterior Prediction
+# 1. Model
+modelString = "
+# Repeated Measures of IQ
+model{
+  # Data Come From Gaussians With Different Means But Common Precision
+  for (i in 1:n){ #Person
+    for (j in 1:m){ # IQ Test
+      x[i,j] ~ dnorm(mu[i],lambda)
+    }
+  }
+  # Priors
+  sigma ~ dunif(0,100)
+  lambda <- 1/pow(sigma,2)     
+  for (i in 1:n){
+    mu[i] ~ dunif(0,300)
+  }
+}"
+
+# 2. Data
+x <- matrix(c(90,95,100,105,110,115,150,155,160),nrow=3,ncol=3,byrow=T) 
+n <- nrow(x) # number of people
+m <- ncol(x) # number of repeated measurements
+
+mydata = list("x", "n", "m")
+
+# 3. Start Values
+myinits = list(
+  list(mu =rep(100,n), sigma = 1)
+)
+
+# 4. Paramters to be monitored
+parameters = c("mu", "sigma","lambda")
+
+# The following command calls JAGS with specific options.
+# For a detailed description see the R2jags documentation.
+mcmc_samples <- jags(mydata, inits=myinits, parameters,
+                     model.file =textConnection(modelString), n.chains=1, n.iter=1000, 
+                     n.burnin=1, n.thin=1, DIC=T)
+# Now the values for the monitored parameters are in the "samples" object, 
+
+# ready for inspection.
+mu <- mcmc_samples$BUGSoutput$sims.list$mu
+sigma <- mcmc_samples$BUGSoutput$sims.list$sigma
+lambda <- mcmc_samples$BUGSoutput$sims.list$lambda
+summary(mu)
+summary(sigma)
+summary(lambda)
+
+# Graph
+par(mfrow=c(3,2))
+plot(mu[,1], main='mean 1 trace',xlab='iteration', col='blue', lwd=1)
+plot(density(mu[,1]), main='mean 1 distribution',xlab='mu 1', col='skyblue', lwd=2)
+plot(mu[,2], main='mean 2 trace',xlab='iteration', col='blue', lwd=1)
+plot(density(mu[,2]), main='mean 2 distribution',xlab='mu 2', col='skyblue', lwd=2)
+plot(mu[,3], main='mean 3 trace',xlab='iteration', col='blue', lwd=1)
+plot(density(mu[,3]), main='mean 3 distribution',xlab='mu 3', col='skyblue', lwd=2)
+
+par(mfrow=c(1,2))
+plot(sigma, main='standard deviation trace',xlab='sigma', col='skyblue', lwd=2)
+plot(density(sigma), main='standard deviation distribution',xlab='sigma', col='skyblue', lwd=2)
+
+##############################
+# 4.3 Repeated mesurement of IQ
+# Exercise 4.3.2
+#    sigma ~ dunif(0,100)
+#    mu[i] ~ dnorm(100, 0.0044)
+##############################
+# clears workspace:  
+rm(list=ls()) 
+
+#JARS
+# install.packages("R2jags")
+library(R2jags)
+# Prior and Posterior Prediction
+# 1. Model
+modelString = "
+# Repeated Measures of IQ
+model{
+  # Data Come From Gaussians With Different Means But Common Precision
+  for (i in 1:n){ #Person
+    for (j in 1:m){ # IQ Test
+      x[i,j] ~ dnorm(mu[i],lambda)
+  }
+  }
+  # Priors
+  sigma ~ dunif(0,100)
+  lambda <- 1/pow(sigma,2)     
+  for (i in 1:n){
+    mu[i] ~ dnorm(100,0.0044)
+  }
+}"
+
+# 2. Data
+x <- matrix(c(90,95,100,105,110,115,150,155,160),nrow=3,ncol=3,byrow=T) 
+n <- nrow(x) # number of people
+m <- ncol(x) # number of repeated measurements
+
+mydata = list("x", "n", "m")
+
+# 3. Start Values
+myinits = list(
+  list(mu =rep(100,n), sigma = 1)
+)
+
+# 4. Paramters to be monitored
+parameters = c("mu", "sigma","lambda")
+
+# The following command calls JAGS with specific options.
+# For a detailed description see the R2jags documentation.
+mcmc_samples <- jags(mydata, inits=myinits, parameters,
+                     model.file =textConnection(modelString), n.chains=1, n.iter=1000, 
+                     n.burnin=1, n.thin=1, DIC=T)
+# Now the values for the monitored parameters are in the "samples" object, 
+
+# ready for inspection.
+mu <- mcmc_samples$BUGSoutput$sims.list$mu
+sigma <- mcmc_samples$BUGSoutput$sims.list$sigma
+lambda <- mcmc_samples$BUGSoutput$sims.list$lambda
+summary(mu)
+summary(sigma)
+summary(lambda)
+
+# Graph
+par(mfrow=c(3,2))
+plot(mu[,1], main='mean 1 trace',xlab='iteration', col='blue', lwd=1)
+plot(density(mu[,1]), main='mean 1 distribution',xlab='mu 1', col='skyblue', lwd=2)
+plot(mu[,2], main='mean 2 trace',xlab='iteration', col='blue', lwd=1)
+plot(density(mu[,2]), main='mean 2 distribution',xlab='mu 2', col='skyblue', lwd=2)
+plot(mu[,3], main='mean 3 trace',xlab='iteration', col='blue', lwd=1)
+plot(density(mu[,3]), main='mean 3 distribution',xlab='mu 3', col='skyblue', lwd=2)
+
+par(mfrow=c(1,2))
+plot(sigma, main='standard deviation trace',xlab='sigma', col='skyblue', lwd=2)
+plot(density(sigma), main='standard deviation distribution',xlab='sigma', col='skyblue', lwd=2)
+
+##############################
+# 4.3 Repeated mesurement of IQ
+# Exercise 4.3.3
+#    sigma ~ dunif(0, 100)
+#    mu[i] ~ dunif(0, 100)
+##############################
+# clears workspace:  
+rm(list=ls()) 
+
+#JARS
+# install.packages("R2jags")
+library(R2jags)
+# Prior and Posterior Prediction
+# 1. Model
+modelString = "
+  # Repeated Measures of IQ
+  model{
+  # Data Come From Gaussians With Different Means But Common Precision
+  for (i in 1:n){ #Person
+  for (j in 1:m){ # IQ Test
+  x[i,j] ~ dnorm(mu[i],lambda)
+  }
+  }
+  # Priors
+  sigma ~ dunif(0,100)
+  lambda <- 1/pow(sigma,2)     
+  for (i in 1:n){
+  mu[i] ~ dunif(0,100)
+  }
+}"
+
+# 2. Data
+x <- matrix(c(94,95,96,109,110,111,154,155,156),nrow=3,ncol=3,byrow=T) 
+n <- nrow(x) # number of people
+m <- ncol(x) # number of repeated measurements
+
+mydata = list("x", "n", "m")
+
+# 3. Start Values
+myinits = list(
+  list(mu =rep(100,n), sigma = 1)
+)
+
+# 4. Paramters to be monitored
+parameters = c("mu", "sigma","lambda")
+
+# The following command calls JAGS with specific options.
+# For a detailed description see the R2jags documentation.
+mcmc_samples <- jags(mydata, inits=myinits, parameters,
+                     model.file =textConnection(modelString), n.chains=1, n.iter=1000, 
+                     n.burnin=1, n.thin=1, DIC=T)
+# Now the values for the monitored parameters are in the "samples" object, 
+
+# ready for inspection.
+mu <- mcmc_samples$BUGSoutput$sims.list$mu
+sigma <- mcmc_samples$BUGSoutput$sims.list$sigma
+lambda <- mcmc_samples$BUGSoutput$sims.list$lambda
+summary(mu)
+summary(sigma)
+summary(lambda)
+
+# Graph
+par(mfrow=c(3,2))
+plot(mu[,1], main='mean 1 trace',xlab='iteration', col='blue', lwd=1)
+plot(density(mu[,1]), main='mean 1 distribution',xlab='mu 1', col='skyblue', lwd=2)
+plot(mu[,2], main='mean 2 trace',xlab='iteration', col='blue', lwd=1)
+plot(density(mu[,2]), main='mean 2 distribution',xlab='mu 2', col='skyblue', lwd=2)
+plot(mu[,3], main='mean 3 trace',xlab='iteration', col='blue', lwd=1)
+plot(density(mu[,3]), main='mean 3 distribution',xlab='mu 3', col='skyblue', lwd=2)
+
+par(mfrow=c(1,2))
+plot(sigma, main='standard deviation trace',xlab='sigma', col='skyblue', lwd=2)
+plot(density(sigma), main='standard deviation distribution',xlab='sigma', col='skyblue', lwd=2)
+##############################
+# 4.3 Repeated mesurement of IQ
+# Exercise 4.3.3
+#    sigma ~ dunif(0, 100)
+#    mu[i] ~ dnorm(100, 0.0044)
+##############################
+# clears workspace:  
+rm(list=ls()) 
+
+#JARS
+# install.packages("R2jags")
+library(R2jags)
+# Prior and Posterior Prediction
+# 1. Model
+modelString = "
+# Repeated Measures of IQ
+model{
+# Data Come From Gaussians With Different Means But Common Precision
+for (i in 1:n){ #Person
+for (j in 1:m){ # IQ Test
+x[i,j] ~ dnorm(mu[i],lambda)
+}
+}
+# Priors
+sigma ~ dunif(0,100)
+lambda <- 1/pow(sigma,2)     
+for (i in 1:n){
+mu[i] ~ dnorm(100, 0.0044)
+}
+}"
+
+# 2. Data
+x <- matrix(c(94,95,96,109,110,111,154,155,156),nrow=3,ncol=3,byrow=T) 
+n <- nrow(x) # number of people
+m <- ncol(x) # number of repeated measurements
+
+mydata = list("x", "n", "m")
+
+# 3. Start Values
+myinits = list(
+  list(mu =rep(100,n), sigma = 1)
+)
+
+# 4. Paramters to be monitored
+parameters = c("mu", "sigma","lambda")
+
+# The following command calls JAGS with specific options.
+# For a detailed description see the R2jags documentation.
+mcmc_samples <- jags(mydata, inits=myinits, parameters,
+                     model.file =textConnection(modelString), n.chains=1, n.iter=1000, 
+                     n.burnin=1, n.thin=1, DIC=T)
+# Now the values for the monitored parameters are in the "samples" object, 
+
+# ready for inspection.
+mu <- mcmc_samples$BUGSoutput$sims.list$mu
+sigma <- mcmc_samples$BUGSoutput$sims.list$sigma
+lambda <- mcmc_samples$BUGSoutput$sims.list$lambda
+summary(mu)
+summary(sigma)
+summary(lambda)
+
+# Graph
+par(mfrow=c(3,2))
+plot(mu[,1], main='mean 1 trace',xlab='iteration', col='blue', lwd=1)
+plot(density(mu[,1]), main='mean 1 distribution',xlab='mu 1', col='skyblue', lwd=2)
+plot(mu[,2], main='mean 2 trace',xlab='iteration', col='blue', lwd=1)
+plot(density(mu[,2]), main='mean 2 distribution',xlab='mu 2', col='skyblue', lwd=2)
+plot(mu[,3], main='mean 3 trace',xlab='iteration', col='blue', lwd=1)
+plot(density(mu[,3]), main='mean 3 distribution',xlab='mu 3', col='skyblue', lwd=2)
+
+par(mfrow=c(1,2))
+plot(sigma, main='standard deviation trace',xlab='sigma', col='skyblue', lwd=2)
 plot(density(sigma), main='standard deviation distribution',xlab='sigma', col='skyblue', lwd=2)
 
 ###########################################################################
