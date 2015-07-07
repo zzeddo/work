@@ -1,3 +1,8 @@
+#pyparsing-2.0.3.tar.gz
+#python-dateutil-2.4.2.tar.gz
+# six-1.9.0.tar.gz
+#numpy-1.9.2-win32-superpack-python3.4.exe
+#matplotlib-1.4.3.win32-py3.4.exe
 import numpy as np
 import matplotlib.pyplot as plt
 limit=4
