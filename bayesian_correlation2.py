@@ -7,8 +7,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from scipy.stats.stats import pearsonr
 # 1. Data
-x = np.array([87030, 79571, 67385, 72402, 70816, 62985, 131463])
-y = np.array([2549, 2244, 2555, 2110, 1406, 942, 2504])
+x = np.array([0.8, 1, 0.9, 0.7, 0.4, 1.2, 1.4, 0.6, 1.1, 1.3])
+y = np.array([98, 100, 105, 103, 100, 99, 87, 113, 89, 93])
 data = np.array([x,y])
 n = len(x)
 mean = [x.mean(), y.mean()]
