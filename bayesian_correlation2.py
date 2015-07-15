@@ -44,3 +44,5 @@ xy = MvNormal('xy', mu=mean, tau=precision, value=data.T, observed=True)
 #3. MCMC sampling
 S = pymc.MCMC(locals())
 S.sample(iter = 10000, burn = 1, thin = 1)
+S.db.close()
+Matplot.plot(S)
