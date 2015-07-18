@@ -189,3 +189,100 @@ plt.grid(True)
 
 
 
+
+# coding: utf-8
+
+# In[11]:
+
+class Vec:
+    def __init__(self, labels, function):
+        self.D=labels
+        self.f=function
+v=Vec(['A', 'B', 'C'], {'A':1})
+
+for d in v.D:
+    if d in v.f:
+        print(v.f[d])
+
+def zero_vec(D):
+    return Vec(D, {d:0 for d in D})
+
+d={1,2,3,4,5,6,7,8}
+dp = zero_vec(d)
+print(dp)
+
+
+# In[34]:
+
+class Vec:
+    def __init__(self, labels, function):
+        self.D=labels
+        self.f=function
+v=Vec(['A', 'B', 'C'], {'A':1})
+
+def setitem(v, d, val) :
+    if d in v.D :
+        v.f[d] = val
+    else :
+        print('out of range')
+
+def getitem(v,d) :
+    return v.f[d] if d in v.f else 0
+
+setitem(v,'B',2)
+setitem(v,'C',5)
+
+print(v.D)
+print(getitem(v, 'B'))
+
+
+# In[33]:
+
+def scalar_mul(v, alpha) :
+    return ([v[i]*alpha for i in range(len(v))])
+v=[1,2,3,4,5,6]
+print(scalar_mul(v, 3))
+
+
+# In[55]:
+
+def setitem(v, d, val) :
+    if d in v.D :
+        v.f[d] = val
+    else :
+        print('out of range')
+
+def getitem(v,d) :
+    return v.f[d] if d in v.f else 0
+
+def scalar_mul(v, alpha) :
+    return Vec(v.D, {d:alpha*getitem(v, d) for d in v.D})
+def scalar_mul2(v, alpha) :
+    return Vec(v.D, {d:alpha*value for d, value in v.f.items() })
+v=Vec(['A', 'B','C'], {'A':1, 'B':2, 'C':3})
+vp=scalar_mul2(v,3)
+getitem(vp, 'B')
+
+def add(u, v) :
+    return Vec(u.D, {getitem(u,d) + getitem(v, d) for d in u.D})
+add(v,vp)
+add(v,vp).f
+add(v,vp).D
+
+
+# In[65]:
+
+def dot_prod(v,w) :
+    return (sum(v[i]*w[i] for i in range(len(v))))
+def list_dot(u, v):
+    return sum(i*j for (i,j) in zip(u,v))
+v=[1.,2.,3.,4.,5.]
+w=[1/5, 1/5, 1/5, 1/5,1/5]
+print(dot_prod(v,w))
+print(list_dot(v,w))
+
+
+# In[ ]:
+
+
+
