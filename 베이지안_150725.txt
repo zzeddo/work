@@ -1,0 +1,105 @@
+IPython Notebook 환경에서 베이지안 추론 모델을 구축하고 실행하기
+1. 필요한 도구 
+  - Anaconda : Python 통합 개발 환경(ipython notebook과 다양한 라이브러리가 통합)
+  - R : R 언어 기반의 통계 팩키지 제공
+  - R Studio : R 기반 통합 개발 환경
+  - JAGS : Just Another Gibb Sampler, 베이지안 추론 모델 사용 가능
+
+1. Anaconda 설치 : 개별 운영 체제 환경에 따라 설치
+http://continuum.io/downloads#py34
+
+2. R 설치 : 개별 운영 체제 환경에 따라 설치
+https://www.r-project.org/
+
+3.  R Studio 
+https://www.rstudio.com/products/RStudio/
+
+4. JAGS
+http://mcmc-jags.sourceforge.net/
+http://sourceforge.net/projects/mcmc-jags/files/JAGS/3.x/Windows/ --> Windows의 경우
+
+5. R상에서 JAGS와 R2Jags 설치
+R의 Command 창에서 다음 명령 수행
+install.packages("R2jags") --> 혹수 수행이 되지 않은 경우 Set CRAN Mirror 변경한다.
+
+6. 베이지안 모델 테스트 : RStduio에서 수행
+Bayesian Cognitive Modeling 4장 참조
+##############################
+# 4.1 Inference a mean and standard deviation
+##############################
+# clears workspace:  
+rm(list=ls()) 
+
+#JARS
+library(R2jags)
+
+# Prior and Posterior Prediction
+# 1. Model
+modelString = "
+# Inferring the Mean and Standard Deviation of a Gaussian
+model{
+# Data Come From A Gaussian
+for (i in 1:n){
+x[i] ~ dnorm(mu,lambda)
+}
+# Priors
+mu ~ dnorm(0,0.001)
+sigma ~ dunif(0,10)
+lambda <- 1/pow(sigma,2)
+}"
+
+# 2. Data
+x = c(1.1, 1.9, 2.3, 1.8)
+n = length(x)
+mydata = list("x", "n")
+
+# 3. Start Values
+myinits = list(
+  list(mu =0, sigma = 1)
+)
+
+# 4. Paramters to be monitored
+parameters = c("mu", "sigma","x")
+
+# The following command calls JAGS with specific options.
+# For a detailed description see the R2jags documentation.
+mcmc_samples <- jags(mydata, inits=myinits, parameters,
+                     model.file =textConnection(modelString), n.chains=1, n.iter=1000, 
+                     n.burnin=1, n.thin=1, DIC=T)
+# Now the values for the monitored parameters are in the "samples" object, 
+# ready for inspection.
+x <- mcmc_samples$BUGSoutput$sims.list$x
+mu <- mcmc_samples$BUGSoutput$sims.list$mu
+sigma <- mcmc_samples$BUGSoutput$sims.list$sigma
+summary(mu)
+summary(sigma)
+
+# Graph
+par(mfrow=c(2,2))
+plot(mu, main='mean trace',xlab='iteration', col='blue', lwd=1)
+plot(density(mu), main='mean distribution',xlab='mu', col='skyblue', lwd=2)
+plot(sigma, main='standard deviation trace',xlab='iteration', col='blue', lwd=1)
+plot(density(sigma), main='standard deviation distribution',xlab='sigma', col='skyblue', lwd=2)
+
+
+7. Anacoda 환경에서 R-Kernel 설치 : cmd 창에서 아래 명령 수행
+conda install -c https://conda.binstar.org/r r-irkernel
+
+8. ipython notebook 환경에서 JAGS를 통한 베이지안 모델 테스트
+1) ipython notebook 실행
+2) R Kernel 선택
+3) 명령어 창에서 아래 명령 수행
+library(R2jags)
+--> Error in library(R2jags): there is no package called 'R2jags'
+위와 같은 오류가 발생하는 것은 .libPaths() 설정 문제임
+시스템 환경 변수 설정 : R_LIBS=C:\Program Files\R\R-3.2.1\library
+그러나 Anacoda와 현재 설치된 R 버젼과의 차이로 인하여 문제가 될 수 있다.(.libPaths()을 통해 확인 가능)
+해결을 위해서는 Anaconda에 설치된 R을 통하여 R2jags 설치하여 해결한다.
+C:\Anaconda3\R\bin\i386\Rgui.exe
+install.packages("R2jags")
+* 결론적으로 PC상에서 2개의 R 환경을 준비하였으며, 기존에 R 환경 제거하여 1개의 환경으로 만들 수도 있다.
+4) 테스트
+Error in png(tf, width, height, "in", pointsize, bg, res, type = "cairo", : unable to load winCairo.dll: was it built?
+위의 오류가 생기면
+ install.packages("Cairo")
+수행함
