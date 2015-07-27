@@ -91,15 +91,17 @@ conda install -c https://conda.binstar.org/r r-irkernel
 3) 명령어 창에서 아래 명령 수행
 library(R2jags)
 --> Error in library(R2jags): there is no package called 'R2jags'
-위와 같은 오류가 발생하는 것은 .libPaths() 설정 문제임
-시스템 환경 변수 설정 : R_LIBS=C:\Program Files\R\R-3.2.1\library
-그러나 Anacoda와 현재 설치된 R 버젼과의 차이로 인하여 문제가 될 수 있다.(.libPaths()을 통해 확인 가능)
+위와 같은 오류가 발생하는 것은 Anaconda용 R-Kenerl의 R에서 'R2jags' 설치를 해 주어야 하기 때문
+(기존 설치된 환경 사용시 시스템 환경 변수 설정함 : R_LIBS=C:\Program Files\R\R-3.2.1\library)
+기존 설치된 환경 사용시 Anacoda와 현재 설치된 R 버젼과의 차이로 인하여 문제가 될 수 있다.(.libPaths()을 통해 확인 가능)
 해결을 위해서는 Anaconda에 설치된 R을 통하여 R2jags 설치하여 해결한다.
 C:\Anaconda3\R\bin\i386\Rgui.exe
 install.packages("R2jags")
 * 결론적으로 PC상에서 2개의 R 환경을 준비하였으며, 기존에 R 환경 제거하여 1개의 환경으로 만들 수도 있다.
 4) 테스트
 Error in png(tf, width, height, "in", pointsize, bg, res, type = "cairo", : unable to load winCairo.dll: was it built?
-위의 오류가 생기면
+위의 오류가 생기면 C:\Anaconda3\R\bin\i386\Rgui.exe 수행하여
  install.packages("Cairo")수행하고 아래 문장을 스크립터에 포함함
  options(jupyter.plot_mimetypes = 'image/png')
+ x=1:10
+ plot(x)
