@@ -101,5 +101,5 @@ install.packages("R2jags")
 4) 테스트
 Error in png(tf, width, height, "in", pointsize, bg, res, type = "cairo", : unable to load winCairo.dll: was it built?
 위의 오류가 생기면
- install.packages("Cairo")
-수행함
+ install.packages("Cairo")수행하고 아래 문장을 스크립터에 포함함
+ options(jupyter.plot_mimetypes = 'image/png')
