@@ -1,0 +1,643 @@
+테마 : 파이썬 다같이 , 성공적.
+행사 : 파이콘 한국(PYCON KOREA) 2015
+일시 : 2015년 8월 29일(토)~30일(일)
+장소 : 상암동 누리꿈 스퀘어 비지니스몰 3층/4층
+파이콘 한국 홈페이지 : http://pycon.kr
+주체: 사단법인 파이썬사용자모임
+협찬 : nipa(정보통신산업진흥원)
+후원 : 마이크로소프트, Google Developers, DEVSISTERS, spoqa, The betapacking company
+-----------------------------------------------
+둘째날
+
+[Opening] - 09:50~10:00/국제회의실
+친구야 같이 놀자.
+
+-------------------------------------------
+[네티 프로젝트 13년] - 10:00~11:00
+발표자 : 이희승
+13년동안 Netty 프로젝트 하면서 경험한 바를 공유하겠습니다.
+
+1. Netty는
+ - 자바 프레임워커
+ - 클라이언트.서버 소켓 개발을 쉽고 빠르게 -네트워크 어플리케이션 개발을 도워준다.
+ - 빠르지만 유지보수 가능하게
+ - 비동기- 성능 관점
+ - 이벤트 기반 - 성능 관점
+
+2. 성장 과정(Many organic, Very forks. Wow!)
+ - 현재의 위상(Github)
+  . 160+ people in repo history
+  . 22nd most starred Java Android project
+  . 17th most forked Java Android project
+
+3. 사용분야
+ - 웹서비스
+ - 인스턴스메시징 : 통신사
+ - 멀티플레이어 게임 : 마인크레프트
+ - 스토리지.데이터베이스 
+ - 고빈도 거래(HFT)
+ - 미디어 스트리밍 : Red fire
+
+4. 왜 만들기 시작했나?(2001년 부터)
+ - 이통 4사 연동 SMS 게이트웨어 개발을 하다 보니...
+  . 전문 형식은 다른데 전문 흐름은 공통 : 전문 해석과 비즈니스 로직을 분리하고 싶다.
+  . 받은 전문에 반응하는 것이 대부분 : GUI 개발하듯 이켄트 기반으로 개발하고 싶다.
+  * 전문을 받아서 전처리기(Frontend)를 두어서 비지니스 로직(Backend)처리하고 처리 결과 저장(Data(DB))
+ - 메세지에 대한 Event Handler를 두어서, 받은 데이터 처리하는 비지니스 로직 개발
+ - (사실) 라이브러리 개발이 좋아서....
+
+5. 왜 공개했는가?
+ - 오픈 소스에 대한 관심
+ - 소통에의 욕구
+ - 세계가 쓰는 소프트웨어를 만들고 싶다?
+   . 그냥 재미로?
+   . 관심받고 싶다?
+ - 그러나 너무 오래전 일이라, 그떄는 젊고 대학생이고 시간도 많아서 인것 같은데
+   여러분, 저도 14년전의 제 마음은 정확히 모릅니다;
+
+6. 느낌점은?
+ - 재미 있다
+  . 내 프로젝트에 '사용자'가 생겼다!
+    .. 내곂에 필요성을 이해하는 사람들이!
+  . 나는 여기선
+    .. Chief Technology Officer
+    .. Chief Customer Officer
+    .. The God of the Project!
+  . 누구도 나의 속도를 막지 못해~
+    .. "버그가 있다구요? 오늘 고쳐서 릴리즈해드리죠!" -칭찬도 받고 기분도 좋고 선순환의 연속이 됨
+ - 재미 없다.
+  . 충분히 운이 좋아서 프로젝트가 성장한다면 ...
+    .. 재미없는 일이 생기기 시작합니다.
+  . 아니 발표자 양반, 이게 무슨 소리요?(일을 하기 시작하면 더욱 일이 늘어남)
+    .. numReportedIssues >>>>>> numPullRequests
+    .. 일을 많이 하면 일이 더 생기는 매직(소스짜면 짤수록 더 많이 작성해야 함)
+    .. 내가 싼 똥에 내가 짜빠진다.
+    .. 또라이 질량 보존의 법칙(Community에 이상한 사람들이 들어오기 시작함 : 해결 필요)
+  . 그것은 위기이자 기히ㅗ
+    .. 어떻게 갈등을 해결할 것인가
+       ... 기술적.인적 :Brace yourselves
+    .. 한발짝 물러나서 문제를 보자
+    .. 이쯤되면 거의 인생 수업 : Merge conflicts are comming
+    * 갈등 상황에 대하여 미래의 오너로써 미리 겪는다는 생각으로 처리해 나감
+  . 내가 다 해결할 필요는 없다
+    .. 위임할 수 있는 일도 혼자서 짊어지고 있는 것은 아닌가? : Contribution을 하도록 사람을 지정함
+      ... "We Love pull requests!"
+      ... "Are you interested in joining the team?" - Contributor 만들기
+      * 협업을 유도하여, 팀을 만들어 문제들을 같이 해 내감
+    .. 기계에서 위임할 수 있는 일도 많다.(SonarTech란 도구를 사용함)
+      사용) Netty, Spark 등
+  . 어떤 문제는 시간이 필요하다.
+    .. "이 기능이 우리 <초유명회사>에서 꼭  필요한데.."
+      ... 서둘러 내놓은 기능은 종종 똥입니다.
+      ... 오픈 소스의 강점인 'doing things right'을 명심!
+    .. 아이디어의 숙성 - 시간을 들어서.. 곰곰히 생각해 보면
+      ... 충분한 사용자 피드백 수렴 - 이것이 피드백 없이 적용해서 망가지는 것보다 훨씬 우리함
+      ... 다양한 선택지의 검토
+    .. 잊고 지내면 문제가 다르게 보이기도? -> 좋은 일이 생김니다.
+    * 물론 당장 내놓아서 좋은 경우도 있기는 하다.(단 기능 내놓을때 공지해야 함)
+
+7. 키보드 워리어가 되기 전에(감성노동자가 되기전에)
+ - 모든 것이 부정적으로 보일때
+ - 과잉반응하는 것은 아닐까?
+ - 내가 문제인가, 프로젝트가 문제인가
+ - 펑취의 기술. 비폭력대화
+  . Hey could you help me understand you problem?
+ - Do not fed the troll!
+ - Are you coming to bed?(What) --> 키보드 워리어
+   I can't this is important.
+   Someone is wrong on the internet.
+ * 이상한 사람(괜히 시비거는 사람)에게는 대응을 하지 하는 것이 좋다.
+
+8. 그런데 왜 이렇게 힘들까?
+ - 당신이 그 프로젝트를 (잘)했기 때문이에요!
+   .. 지지 진영과 함께 또라이 진영도 같이 상승
+
+9. 영원히 겪을 문제들
+ - numIssues >>>>>> team Velocity * lifeExpectancy : 이슈의 수는 팀의 처리능력*기대치보다 많다.
+ - Work-Life - "OSS" balance.symbiosis
+ - Competitors and Disruptors
+ - 분산된 멤버와의 커뮤니케이션 : 주로 이메일과 메신저로 하나, 얼굴을 맞대고 하는 것이 좋음
+ - 하위 호환.마이그레이션
+ - 생각지 않았던 용법
+ - 문서화
+ ..
+
+10 "내가 혹시 "프로젝트 노예 13년"을 찍고 있는 것은 아닌까 생각도 든다.
+
+11. 그럼 그걸 왜 하고 있죠?
+ - 힘들 때 : 사실 저도 잘... 관성;?(그냥 함)
+ - 좋을 때
+  . 더 높은 목표를 향한 전진
+  . 생면 부지의 동료와 함께하는 기술적. 인간적 성장
+ - 끝내줄 때
+  . 세상을 더 나은 곳으로 만들어가는 과정 그 자체
+
+12. 여러분도 한번?
+ - 시작도 전에 걱정은 금물~
+ - 과정 >>>>>> 결과 - 성공하면 좋겠지만 과정을 통한 경험은 돈을 주고도 사지 못한다.(실패해도 다시 시도)
+   . Doing things right
+   . Promoting your work : 경험을 쌓아 나간다.
+   . Working althogether alone : 함께 일하는 재미, 다양한 배경의 사람들과 함께 성장, 재밌다.
+   . Embracing new ideas and challenges.... : 나중에 후회하지 말고, 시작해 보세요..
+
+13. Q/A
+ - Committer, Contributor 모집은 어떻게
+   . Committer만 소스를 수정가능하며 Contributor를 요구사항을 리뷰하고 Full Request를 정리함
+   . 요즈음은 Committer와 Contributor 역활이 유사해 지지만(소스 수정 관점)
+     Committer가 좀더 프로젝트 로드맴, 소스코드의 품질에 신경쓰게 됨 
+   . 인원 모집은, 요구사항(Full Request)을 내는 사람들을 꼬시면 잘 넘어옴
+     기능에 관심을 많고 오류 찾는 사람들을 유심히 보고 뽑으면 됨(활동도 중요함)
+     인원 관리는 활동을 많이 하는지 않하는지를 보면서 관리함.
+ - 
+-------------------------------------------
+[Celery의 빛과 그림자] - 11:00~12:00
+발표자 : 정민영
+1. 발표자 소개
+ - 비트패킹컴퍼니 CTO
+ - PyconKR 2014/Deview 2014 '제약을 넘어 : Gevent' 발표(Deview 2014 Top 10)
+ - 아마존 웹서비스 사용자 그룹 운영중
+ * 일요일 아침 늦어서 택시를 타고 오는데 
+   택시기사에서 컨퍼런스 발표 간다고 하니 이상한 사람이 많네란 이야기를 들었음
+
+2. 이런분들을 위해 준비했어요!
+ - 저는 약(음악)에 관심 있어요!
+ - 비동기 처리를 해야되긴 한다던데 ... 뭐가 뭔지 모르겠다던 분..
+
+3. Celery
+ - Distributed Task Queue 혹은 (종합적인) 비동기 처리기?
+ - 어잉 비동기 처리는 무엇이지?
+
+4. 비동기 처리기는 왜 필요한 걸까?
+ - 고갱님께서 진진하게 가입을 해볼까란 생각에 "어떤 서비스" 가입하는데
+   "어떤 서비스"에서 프로필 사진등 다양한 요구 사항을 다시 요청하다 보면
+   고객은 이미 가버림
+ - 비동기 처리기는 동기적으로 수행하지 않아도 되는 일 즉, 지연해서 처리 가능한 것들을 처림
+ - 물론 제대로 처리 안되도 된다는 것이 아니라 지정된 실행시간내에 처리가 되어야 함
+
+5. 그런데 Celery를 써야 하나?
+ - 완전 쉽게 연동할 수 있어요!
+ - (아마도) 당신이 상상할 수 있는 모든 기능을 제공해요!
+ - 일단 남들이 제일 많이 써요!(가장 중요(90%정도))
+
+6, 완전 쉽게 연동할 수 있어요!
+ from celery import Celery
+ app = Celery('hello', broker='amqp://guest@...')
+ ---
+ from tasks import add
+ add.deploy(1,2)
+ r=add(1,2)
+ r.get(timeout=1)
+ -----
+ 다양한 통신 Broker와 연동 가능함(RabbitMQ, AMQ등)
+ 다양한 기능과 연동 가능함 : django-celery 등
+ -----
+ T.delay(arg, kwarg=value)
+ T.apply_async((arg,), {'kwarg' : value})
+ T.apply_async(countdown=10)
+ T.apply_async(countdown=50, expires=120)
+ >>> from celery import chain --> 앞의 Task의 결과를 다음에 처리하도록 함
+ # 2+2+4+8
+ >>> res = chain(add,s(2,2), add.s(4), add.s(8))()
+ >>> res.get() 
+ * Work Flow 기능 
+ new_user_workflow=(create_user.s() } group(import_contacts....)
+ * Clonetab 기능 - Version 관리 가능함
+ from datetime import timedelta
+ CELERYBEAT_SCHEDULE= {
+     'add-every-30-seconds' : { 
+        'task' : 'tasks.add',
+        'schedule' : timedelta(seconds=30),
+            ...
+ * Celery 모니터링 가능(Text 및 Web 상에서)
+
+7. 뭐 .. 좋은 걸 알겠는데..
+ Thers ain't no such a thing free.
+
+8. 비트 소개
+ - 국민 음악앱 500만명 돌파
+ - 푸시가 새벽 2시에 올라오는 이상 현상을 감지할 때에 유용함
+
+9. 잘 알고 써야 하는 Celery!(플라스크도 비슷)
+ - 적은 규모에서, 간편하게 쓰기에는 더 없이 훌륭하지만...
+ - 의외로 조금만 규모가 커져도 신경써야 할 부분이 많아요!
+ - 특히 처음부터 고려하지 않으면 알 수 없는 이상작동처럼 느껴질 수 있으니 주의가 필요해요.
+
+10. Broker
+ - 돈 주로 받게 하는 브로커(부동산 브로커)
+ - 어떤 녀석이 일(Task)을 처리할지 중개해주는 역활을 수행함
+
+11. Celery 구조
+ - Web App, Broker, (Worker, Worker, Worker)
+ - Celery는 다양한 Broker 지원함(RabbitMQ, Redis, Mongo DB, Zookeeper, Iron MQ 등)
+   RabbitMQ, Redis는 AMQP 기능 제공하여 모니터링 가능하나
+   Mogo DB등은 Celery와 연동할때 잘 안되는 부분도 있다.
+ - Celery는 Rabbit MQ의 Broker로 사용하기 위해 만들어 졌다.
+
+12. ack
+    Broker -> Worker 로 메세지 보내고
+    Broker <- Worker ack 신호 보냄(잘 받았다.)
+
+13. ack + visibility timeout
+    Broker -> Worker 로 메세지 보내고
+    - 일정시간동안 ack가 오지 않으면
+    Broker -> Worker 로 메세지 다시 보냄
+
+14. Redis/SQS에서의 visibility timeout
+ - visibility timeout내에 ack가 전달되지 않으면, task가 중복 실행됩니다.(위험한 상황)
+
+15. 그외의 고생길
+ - Redis는 메모리가 부족한 상황에서 임의로 Key가 삭제될 수 있어요!
+ - SQS는 API 요청당 과금을 하고, Pub/Sub이 아닌 Polling 모델이에요, 자주 땡길(!)수록 요금이 나와요.
+ - SQS를 Broker로 사용하면 Celery의 주요한 모니터링 기능 대부분을 사용할 수 없어요.
+ * 고생사서 하지 마시고 그냥 Rabbit MQ 사용하세요.
+
+15. prefetch의 배신(?)
+ - Task들을 그냥 미리 땡겨두는거죠, 심플하게 다른 뜻 없이(Broker에서 미리 Worker 땡기기)
+ - Broker서 Task들을 Queue에 넣어서 Prefetch로 수행할 놈들을 미리 잡아놈
+   그러나, 수행시간이 Long과 Short 상관 없이 그냥 되는되로 Task를 잡아서 문제가 됨
+   즉 Short와 Long에서 Long 끝날때까지 다음 prefetch 수행하지 않음
+   최적화가 보완 필요하다.  
+ - prefetch된 단위 전체의 작업을 소비해야(ack*)다음 prefetch가 수행됩니다.
+ - task가 비워지는 대로 다음 task를 수행함 -- 맨붕
+ - 그래서 Task가 많은 경우 계속해서 Celery의 Queue가 쌓여 가고 망해 갈 수 있음
+ - 해결 방안으로 ofair가 있기는 하다.
+ - 하지만 Celery를 통한 Queue 설계부터 고민하면 성능이 좋아 진다.
+   계란을 한바구니의 담지 말라는 격언처럼 "Task"을 한큐에 담지 마세요
+   Task의 수행 시간이 비슷한 것끼리 Queue를 나누도록 설게합니다.
+   그리고 처리의 중요도/우선순위도 나누면 좋아요.
+ 
+16. 성능에 15배 영향을 주는 것은?
+ - ignore_result
+  . Celery는 기본적으로 수행결과를 저장하나, 저장된 값을 사용하는 경우는 드물다.
+  . 보통 Task 연계를 하는 경우에 필요함(parameter로 전달)
+  
+17. 그래도 역시 Celery!
+ - 비록 여러 어려움을 겪기는 했지만 여러 제약속에서 특정 선택을 했을 뿐인 경우가 많아요.
+ - Celery 없이 문제 해결하다 보면 다시 문제를 반복하고 있어요.
+
+-------------------------------------------
+[탐색적으로 큰 데이터 분석하기 : 파이프라인, 병렬화, 압축, 인텍싱 등에 대해] 12:00~13:00
+장혜식 : 기초과학원구원 RNA연구단
+작년에 Opening을 진행했는데, 올해는 발표를 진행하게 되었습니다.
+데이터가 많으면 뱀(python)이 많이 필요할 것 같아 배경화면을 뱀으로 했습니다.
+
+주제는 Electonic Health Records(EHR) 전자의료기록입니다.
+예전에는 수기로 환자에 진료 기록을 남겼으나, 최근에는 전자문서로 만들어 관리하고 있음.
+이것도 한병원에서만 관리하는 거이 아니라, 모든 병원과 환자, 처방전, 약에 대하여 데이터로 관리하여
+특정 환자, 특정 약에 대한 부작용, 알레르기등이 분석되어 관리하고 있다.
+
+하바드 의대 Isaac Kohane 그룹에서 이런 부분을 분석하다가
+[특이 환자]어떤 사람이 병원에 자주 이유 분석하다가(재미로) 
+1992년에서 1999년까지 처음에는 소화기 문제, 이후 호흡기, 피부과, 정신과 등 원인은 가정 폭력이었음.
+이런 식으로 환자의 병원 방문 및 병명에 대하여 가정폭력 모델을 만들어 분석을 하다 보니
+4000명의 가정 폭력 피해자를 찾아내는 성과를 냄
+
+이런식으로 앞의 현상에 대하여 결과가 다시 원인이 되어 분석을 해가는 과정을 탐색적 데이터 분석이라고 함
+(정형적이지 않은 데이터라서 무지 어려움)
+
+1. 탐색적 데이터 분석
+ - 재미있는 것을 찾아야 한다.(=앞으로 뭘 할지 모른다.)
+ - 언제 어떤 데이터가 추가될 지 모른다.(데이터 plan 수립이 불가하다.)
+ - 코드는 빨리 만들어서 (거의) 한번만 쓴다.
+   . 빨리 짜서 빨리 버린다.
+ - 그렇다고 재사용이 아예 없는 것은 아니다.
+ * 그래서 python과 같은 JIT 언어가 사용하기 좋다.
+2. 요구 사항
+ - 코드 추가/수정 매우 간편
+ - 흐름도 슉슉 쉽게 바뀌어야 함
+ - 조금씩 실행
+ - 프레임워크 유연하고 성숙
+ - 성능 확보
+
+3. Jupyter Notebook은 탐색적 데이터 분석에서 반드시 사용하는 도구이다.
+   (과거에는 ipython-notebook으로 불렸음)
+ - 너넨 롯데리아 우린 버거킹
+ - 인생도 Jupyter를 쓰기전과 쓴 후로 나누어짐
+ - 인생도 pandas를 쓰기전과 쓴후로 나누어짐
+
+4. Snakemake
+ - Workflow 관리도구이며 c/c++에서 사용하는 make와 유사하다.
+ - make가 좋은 것
+   . 아주 간결한 문법
+   . 가볍다
+   . 파일 기반 의존성(생성시기에 따라 관리)
+   . "규칙"
+   . 병렬화
+ - make가 안 좋은 것
+   . 이상하고 못생긴 문법
+   . 스크립팅이 매우 제한적임
+   . 파일이름에 와일드카드 및 패턴 못 씀
+   . 부족한 병렬화, 클러스터 지원
+   . 현대과학의 혜택을 받지 못함(90년대 이후 개발된 문법등을 반영 못함)
+ - snakemake는 이런 make의 문제를 해결
+   rule myrule :
+   input : "path/to/{sample}.txt"
+   output : "path/to/{sample}.column1.txt"
+   shell : "paste {input} > {output"
+   run : --> python code을 바로 사용할 수 있다.
+ * 다양한 workflow 툴들이 존재하지만 snakemake만큼 쉽지는 않음
+ - snakemake를 사용하면 코드가 간절하고 이해하기 쉽고 일의 능률도 올라감
+ - snakemake에서는 dependency 자동 계산하여 실행하도록 한다.
+ - snakemake는 python으로 번역하여 실행한다.(makefile 이상하게 돌아 가면 python 코드 보면 됨)
+ - snakemake는 make와 마찬가지로
+  . 의존성이 없는 작업은 병렬로 실행됨
+  . 이미 있는 새 파일은 무시하고 지나감
+ - 사용 예시
+  $ snakemake -n 
+  $ snakemake --cores 8 : 8코아까지 사용하여 make 수행
+ - File-Driven programming?
+   보일러판이 필요없는, 프로그램 내장형, 병렬화 이벤트 루프 사용 가능함
+ - GUI를 통하여 makefile에 대한 가시화 가능
+ 
+5. 텍스트 병렬 처리 -> 탐색적 데이터 분석은 일반적인 파일 포맷을 사용할 수 밖에 없다(많이 쓰고 버리기)
+ - 탭으로 구분된 텍스트(tsv)
+ - 쉼표로 구분된 텍스트(csv)
+ - 텍스트 파일 압축된 것을 분석하려면, 그리고 엄청 쉽게 병렬처리 하려면????
+  . 압축을 안 한다--> Disk I/O 및 용량 문제
+  . 파일을 쪼갠다 --> 어떤 기준으로 쪼갤지 모른다.(한개가 좋음)
+
+6. tabix 쓰기 
+ - gzip 압푹 파일 1개를 gz block 1~10(bgzf)으로 나누어 관리함(gzip과 호환)
+ - tabix를 통하여 인덱스를 만들어, 검색해야 함
+ - 한계점은 초기 인덱싱은 병렬화되지 않아 시간이 걸리며, 반드시 2레별 인덱스로 정렬돼 있어야 한다.
+   그리고 레별 1 인덱스는 범위지정은 안된다.
+
+7. 파이썬이 답답하면? --> 느린 것이 문제다.
+ - 파이썬에서 하기 힘든 것은
+  . Dynamic Programming -> 앞의 결과를 뒤에 반영하면서 지속적으로 실행 도중에 결과가 바뀜(순서가 중요)
+  . Monte Carlo Simulation -> 시간이 걸림
+  . Permutation Tests
+ - Julia란 언어가 있다.
+
+8. Julia -> 성능 짱
+ - 로고와 프롬프트도 칼라도 나옴
+ - julia로 프로그램 작성시 native 옵션 주면 어셈블러로 번역하여 보여 주며, 
+   이로 인하여 C와 유사한 수준의 성능을 보여줌
+ - 잘 짜면 성능이 짱이며, 매우 큰 프로그램을 만들기 편함.
+ - python에 익숙하면 julia로 프로그램하기 어렵지 않다.
+ - 찰떡궁합 Julia Love Python
+ - %load_ext julia.magic을 juypter에서 호출 가능하다.
+
+9, 요약
+ - Jupyter notebook 쓰면 똑똑해집니다.(이전 결과를 시각화 해서 보여줌)
+ - Snakemake 쓰면 수명이 늘어납니다.(실수를 사전에 예방하여, 심장에 부담을 줄여줌)
+ - 큰 텍스트 파일을 나눠서 처리하려면 tabix
+ - 속도가 필요할 경우, julia와 python을 같이 쓰세요.
+ - Julia 사용자 그룹의 노해경씨를 통해 배우게 되었다.
+
+10. Q/A
+ - jupyter 사용시 Unicode 문제는 어떻게 대응 하시나?
+   . 영어만 사용해서 unicode 문제 접하지 못함
+ - Do-It이란 make 도구는 어떻게 생각하는가?
+   . 사용하지 않아서 잘 모르겠음
+ - 기존 make를 snakemake로 바꿀 수 있나요?
+   . 확장 문법은 어렵고 기본 문법은 쉽다.
+ - csv 256Gbytes 보여 주셨는데, jupyter에서 버뻑 거림
+   . 사용 PC의 메모리를 256G로 증설해서 해결 했음(한 300백만원 필요함)
+   . 혹은 512G 메모리 달면 날라 다님
+ - julia가 성능이 좋은 이유
+   . 형을 미리 결정하고 Interpreter 방식이긴하지만 전처리 과정에서 Assemble 수준으로 바꾸어 실행
+-------------------------------------------
+[파이썬을 이용한 새 프로그래밍 언어 "약속"의 개발] 13:00~14:00
+yaksok.org 홈페이지를 통하여 공개됨
+약속 언어는 한글 인터프리터 언어임
+파이썬에 영향을 많이 받았으며, 만우절에 공개함
+약속 언어 명세를 제공함
+*발표자 소개(넥센에 근무중)
+
+1. 좋은 점?
+ - 완전히 한글만 사용하여 작성할 수 있다.(씨앗 언어도 참조 가능)
+ - 자연스러운 어순의 함수 호출
+ - 프로그램 언어 교육 경험을 반영함
+
+2. 왜 한글 언어?
+ - 한글을 사용 가능하니까....
+
+3. 개발 과정
+ - 개발자 둘이서 IRC, google docs, trello 통해 소통해서 개발
+ - 다양한 디자인 시도
+ - 명시적인 일정과 목표를 공유하며 진행
+ - 파이썬으로 만듬
+
+4. yaksok.org의 놀이터에서 약속 언어 사용 예를 볼 수 있음
+
+5. 약속의 꽃, 약속(=함수)
+ - 컴퓨터가 어떤식으로 처리했으면 하는지 정하는 약속
+  예) 약속 "가로", "세로"인 직사각형
+ - 한글 언어를 만들면서 고민한 부분 "가독성"
+ - 다른 언어들 :func(xxx, xxx)
+ 
+6. 언어 이름 고민
+ - 언어의 제일 큰 특징이 녹아 있으면서 다른 프로그램 언어와 겹치지 않는 것으로 선정 "약속"
+
+7. 대입 표현
+  (python) a=10
+  (약속) a:10
+
+* 언어 명세서를 보면서 세부적인 내용 이해 필요
+-------------------------------------------
+[오늘 당장 딥러닝 실험하기] 14:00~15:00
+발표자 : 김현오
+준비는 많이 했지만, 부족하더라도 발표 하겠습니다.
+저는 UST 컴퓨터 전공하였으며, 한국전자통신연구원 자동통역연구실에 있습니다.
+인공지는, 기계학습, 자연어 처리를 하고 있습니다.
+
+0. 요즘 딥러링에 관심이 많아 지고 있음
+ - 다양한 강의가 진행되고 있음
+ - 한국뇌공학회 여름학교에서도 딥러닝 교육함
+ - 본 강의는 초보 수준에 대한 내용을 다루고 있음
+
+1. Neural Network 이해
+ - Artificial Neural Network
+  . 인간 신경망의 구성 요소인 뉴런의 동작방식이 모티브가 된 기계학습 시스템(뉴런)
+  . 인공 뉴런에 대하여 알아 보자
+ - 실제 뉴런 vs 인공 뉴런
+  . 인공 뉴런은 입력(Input)과 처리(Processing), 출력(Output, Weight기반)으로 나누어짐
+  . 실제 뉴런의 신호 전달 방향과 동일하게 인공뉴런도 신호(정보)를 전달함
+ - 인공 뉴런 네트워크(Artifical Neural Network)는 인공 뉴런을 Ctrl-C, Ctrl-V 형태로 붙여서 층(Layer)를 만듬
+  . 층(Layer)는 Input Layer, Hidden Layer(처리), Output Layer로 나누어짐
+ - 인공 뉴런 네트워크 학습(Artificial Neural Network Learning)을 공부해 보자
+  . 각 노드(인공뉴런)간 Weight를 주어서 연결한다.
+  . Weight에 따라 학습을 시키게 된다.
+  . Forward Propagation은 선행 뉴런의 Output에 Weight를 곱해서 연결된 뉴런에 전달함
+  . Backward Propagation은 Forwoard의 반대로 움직임
+
+2. Deep Neural Network 이해
+ - Stachastic, Unsupervised
+ - 3층 이상의 hidden layer를 가진 뉴런 네트워크를 Deep Neural Network이라고 한다.
+   그러나 베지오 교수의 논문에 따른 Hidden Layer를 3층 이상 두게 되면 좋지 않음
+   . Overfitting
+   . Underfitting의 문제가 있음
+ - 비약전 발전은
+   . 위의 문제(Overfitting, Underfitting)를 Pre-training과 Drop out, Rectified Linear Unit에 의해 해결됨
+ - Pre-Training 성능
+  . 미리 공부 시키면 더 좋은 분포를 보인다.(하지 않으면 분포가 개판이 될 수 있다.)
+  . Contrastive Divergence
+  . AutoEncoder를 통하여 pre-training을 수행함
+    .. 각 Hidden Layer별로 사전학습을 시켜서 뉴런 네트워크를 구성함
+ - Drop-Out
+  . 짤라 버리기
+ - Rectified Linear Unit(ReLU)
+  . Sigmoid function(꼬불꼬불)을 Rectified Linear Unit(직선)으로 변경함
+    .. 꼬불꼬불을 값이 주변부로 갈수록 0에 가까워지면서 Backward, Forward 전달될때 문제가 발생 가능하여
+       기울기가 1인(X) 직선형태로 수행시 전달 잘 됨
+    .. 꼬불꼬불(Sigmoid)는 직선(Rectified Linear)보다 성능도 좋지 않음
+
+3. Theano library
+ - MNIST란 Data Set를 통하여 실험함
+ - Cifar-10을 통하여 개와 비행기 등 구별하는 것도 가능함
+ - 사이트 : deeplearning.net/software_links에서 Theano를 확인 가능하며 피타코라스의 부인임
+ - 다양한 Deep Learning Library : Theano(Python), Torch7(LuaJIT), Caffe(C++)
+ - Theano만 있으면 DNN(Deep Neural Network) 자동으로 만들오 주나요?
+    아니요.. 직접 만들어야 한다.
+ - Theano 사실 다차원 연산이 가능한 python 라이브러리지 DNN 전용은 아니다.
+ - 왜 Theano 사용하나? - grad(), updates(), function()
+  . cuda code 작성하지 않고, python code로 GPU 연산 수행
+  . grad(), updates, function()
+  . symbolic function을 제공함 --> 주요한 기능임
+  . gradients = T.grad()하면 직접 gradient가 계산된다. 
+    ex) x=T.scalar()
+  . function은 graph상에서 호출되는 객체와 인터페이스하게 한다.
+    f=theano.function([x,y], z)를 x,y를 입력으로 z=x+y로 출력으로 그래프 형태로 내부적으로 변경한다.
+ - install theano
+  . pip install Theano : 설치 안되면 필요한 라이브러리 추가함(예: g++)
+ - 실행
+  . $python DBN.py --> 실행됨
+       
+4. Deep Learning code unsing Theano
+ - DBN.py 소스를 보면 데이터를 로드하는 부분과 DNN 만드는 부분, 전처리(pretraining)하는 부분, ReLU 수행하고
+   실제 학습(Learning(Training))을 수행하게 함
+  . train_tr = theano.function(...) 형태로 정의함
+  . DBN을 공식 예제임
+ - DNN using ReLU(Rectified Linear Unit(ReLU))
+  . 전처리(pretraining)이 되면 다음으로 선형으로 모형을 변경 필요.
+  . trX,teX, trY, teY = mnist(onehot=True)을 통해 MNIST 데이터를 가져옴
+ - Play with data -> 자기 데이터로 학습 시키지
+  . load_data() --> 데이터 올리기
+  . data 만들때는 2차원 배열형태로 파일로 만들 후에
+ - Theano modes
+  .FAST_RUN(O), FAST_COMPILE, DEBUG_MODE
+ 
+5. Deep Learning for Natural Language Processing
+ - 박은정님의 한국어 처리 자료 참조하세요.
+ - "나는 밥을 먹는다"를 형태로 형내토 분리하면 "나 는 밥 을 먹 는 다"을 word2vec로 변환하여 사용 가능
+ - Gensim library
+  . gensim 라이브러리를 사용하기 위하여 word2vec 설치
+  . UTF-8로 encoding 방법을 선택한다.(한국어 경우)
+ 
+6. 마치면서
+ - layer의 개수, layer당 node의 개수, learning rate, epoch 횟수등 설정하는게 어려웠다.
+-------------------------------------------
+[introduction to Kivy] 15:00~16:00
+발표자 : 이창욱
+먹고 살려고 개발하는 개발자입니다.
+Python과 OOP의 개념이 있으면 어렵지 않을 것입니다.
+프로젝트 진행하실때, Kivy 생각나면 좋을 것 같습니다.
+1. Kivy란 
+ - Kivy는 Cross-Platform을 목표로 개발된 GUI 라이브러리임
+   . Write Once, Run Anywhere
+ - Compatibility, 
+   Natural User Interface, 
+   GPU acceleration, 
+   FOSS MIT License, 
+   Written in Python : 깔금하게 작성됨
+   . 내부적으로 OpenGL을 사용함.
+   . GPU 활용하여 성능 및 모바일 환경에서는 배터리 오래 쓰게 함
+ - 아키텍처는
+   Front Layer는 Widget, Kv language를 통하여 다양한 라이브러리(Cache, Clock, Gesture, Event Loop, Properties)
+   사용 가능함
+ - install
+   http://kivy.org/#download
+   http://www.lfd.uci.edu/~gohlke/pythonlibs/ 
+ - 개발 진행시 python 2을 사용하시기 바랍니다.
+
+2. kivy App life Cycle
+  python start -> on_start() -> on_stop() -> python stop() 형태로 python 내에서 구동됨
+
+3. 간단한 예제(Hello, World)
+  from kivy,app import App
+  from kivy.uix.label import Label
+  class TestApp(App) :
+    def build(self) :
+      return Label()
+  HelloApp().run()
+  Builder.load_file('path/to/file.kv')
+  
+  # File name : hello.kv
+  <Label> :
+     text : 'Hello World'
+ - Kivy는 CSS와 유사하게 구성가능하다.
+  . Button 객체에 대한 폰트, 색깔, 위치, 크기를 전달하여 표현할 수 있음
+
+4. Events
+ - 어떤 입력(Event)를 받으면 반응하도록 하는 방법
+
+5. Widgets
+ - 화면에 뿌려지는 모든 것을 Widgets이라고 보면 됨
+  . 예) 버튼을 붙이기(add), 제거하기(remove), 화면 지우기(clear)
+
+6. Canvas
+
+7. Mobile상에서도 Kivy를 통하여 개발이 가능하다.
+ - Python-For-Android은 python을 android에서 돌아 가도록 패키징 하는 도구
+ - Kivy-iOS : iphone 용
+ - PyJNlus : Java 연동
+ - PyOBjus : Objective-C 연동
+ - Plyer : 각 플래폼 지원 라이브러리
+
+8. Example : SMS
+ - 50줄내로 작성이 가능함.
+-------------------------------------------
+[R vs.Python : 누가, 언제, 왜] 16:00~17:00
+(주)퀀트랩 유재명
+R로 웹서버 만드시는 분도 있겠지만(거의 없겠지만)
+데이터 분석에서 R과 Python이 가장 많이 사용되고 있음
+(주)퀀트랩의 대표이사로 QuantLab Inc 회사를 운영하고 있습니다.
+사이트는 mindscale.kr에서 교육 과정도 계설해서 하고 있습니다.
+(누가 우리 사이에 스파이가 있는 것은 아니야?)
+이 발표에 슬픈 전설이 있음....
+발표의 원제품은 "Python을 이용한 데이터 분석"이라고 신청했는데 너무 많은 발표 주제가 데이터 분석 관련이라
+발표의 제목을 바꾸게 되었음.(데이터 분석을 두리뭉실하게 하면 안되겠다.)
+
+데이터 분석 발표 풍년이라서...바꾸게 되었음.
+
+언제나 재미 있는 "vs. 놀이"
+"마징가 vs 태권 V" 누가 더 강할까?, "R vs. Python 누가 더 좋을까"
+
+"vs. 놀이"의 결론은 누가, 언제, 왜란 주제에 따라 다르게 나올 수 있다.
+비교를 할때 목적을 두고 특정 기능에 대하여 상대적으로 비교하고 정량적으로 해야지 좋은 결과 나옴.
+
+2014 Data Science Survey(O'Relly에서 무료로 공개함)
+- R과 Pyhton을 가장 많이 사용하고 있음(R이 조금 더 많음)
+- 결론은 둘다 사용하면 됩니다... 끝...... 하면 좋겠지만 
+
+가장 중요한 차이 문화(Cuture)의 차이가 있다.
+1. R
+ - 기본 에디터를 보면 문화를 알 수 있다.
+ - R에는 줄 또는 선택영역 실행하는 기능이 있다.(예 : x+y 이런씩으로 한줄씩 실행)
+   . 참고로 matlab의 경우 한줄에서도 내부변수의 값을 변경하면서 계속 실행 가능함
+   . python는 이런 기능 없음, 기본적으로 모듈단위로 실행(해결책은 jupyter notebook)
+ - R은 S에서 시작되었다.(Statistics)
+ - R User Conference(2015)에서는 대부분 기업체나 학계 주제로 주체되지만
+   Python의 경우 개발자가 중심으로 되어 PYCON을 한다.
+ - CRAN은 R Archive Network의 준말로 라이브러리를 올릴때,중앙에서 심사를 진행하여 검증된 것만 반영
+   Python은 그냥 올릴 수 있음(그래서 이상한 팩키지도 있음)
+ - R의 경우 7,084개의 통계 분석 팩키지가 존재함
+   Python의 경우 기본적인 건 다 되지만, 몇가지만 있으면 다 된다.
+   (numpy, scipy, pandas, scikit-learn, statimodels)
+ - R에서는 Deep Learing 할 수는 있지만 제약이 많아서 제대로 못씀.
+ - R에서는 패키지 상요법이 중구난방(팩키지마다 새로 배워야 함)
+   . as.matrix
+   . summarise_each
+   . termFreq 
+   . 그나마 Python은 일관성이 있음(오래된 라이브러니는 일부 Naming Convention이 안 맞는 경우도 있다.)
+ - R의 경우 분석에 체적화 되어 있다.
+   . 기본적으로 vector임
+   . fomula : lm(y~x+z) 형태로 수칙 모델에 대하여 설명하는 것이 가능함
+     python에서는 statmodels.OLS(y, X).fit() 형태로 사용함(R에 비해 좀 어려움)
+   . 그래서 python에서 R의 fomula를 그대로 사용할 수도 있으나 좀 복잡하다....
+
+2. R 까기(알까기)
+ - 알까기의 달인이 되어 까도록 하겠습니다.
+ - 모르면 괜찮은데 알고 복잡한 R 문법
+ 
