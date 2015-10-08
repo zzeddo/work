@@ -1,0 +1,12 @@
+겨우 Microsoft Office 2007 Home and Student Edition 설치를 하였다.
+1. daum 사이트에서 
+Microsoft Office 2007 Home and Student Edition을 받고
+	http://file.daum.net/pc/view.html?fnum=130600&cat=1&scat=32
+2. Microsoft Office 2007 Home and Student Edition Key를 입력한 후에
+
+3. 아래의 사이트를 참조하여 mso.dll을 복사한 후
+참고 사이트 
+http://iamsiin.blogspot.kr/2009/10/obtain-free-genuine-microsoft-office.html
+
+4. Telephone Activate 시킨다. 
+  United State/0000000000000000000000000
