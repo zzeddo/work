@@ -1,0 +1,45 @@
+1. 네이버 D2 코딩 폰드 받기
+http://dev.naver.com/projects/d2coding/download/note/7267
+
+2. MS Office 설치
+ daum 사이트에서 
+ Microsoft Office 2007 Home and Student Edition을 받고
+ http://file.daum.net/pc/view.html?fnum=130600&cat=1&scat=32
+ Microsoft Office 2007 Home and Student Edition Key(QXMDH-CRYFM-QFR87-HB783-T7RFQ)
+ 아래의 사이트를 참조하여 mso.dll을 복사한 후
+ (C:\Program Files\Common Files\microsoft shared\OFFICE12)
+ 참고 사이트 
+ http://iamsiin.blogspot.kr/2009/10/obtain-free-genuine-microsoft-office.html
+ Telephone Activate 시킨다. 
+  United State/0000000000000000000000000
+
+3. 영어사전 설치
+ Microsoft Bookshelf 2.0
+
+4. Anaconda 설치(jupyter notebook)
+
+5. R Project의 CRAN에서 최신버젼을 Download하여 설치
+ http://cran.nexr.com/
+ 설치시 사용자 설치 옵션으로 조정하여, help를 텍스트로 보이게 함
+
+
+6. R 팩키지를 설치한다.
+ xlsx 팩키지 설치중에 
+ "JAVA_HOME cannot be determined from the Registry" 발생시 java 설치 여부 확인 후
+ 미설치시 jre 설치 후 시스템 환경 변수에 등록한다.
+ JAVA_HOME = C:\Program Files\Java\jre1.8.0_65
+
+7. Oracle XE 설치
+ 설치 완료 후 서비스는 수동으로 변경한다.
+
+8. PL/SQL Developer 설치
+ 8.0.4로 설치 진행 후 아래 Key로 등록한다.
+ PL/SQL Developer 8.0.1.1502
+ Product code: leswljrftczs7bjz8pz2kq7vzq85fu67q8f8rgg2bv
+ Serial number: 642136713
+ Password: xs374ca
+
+9. Redis 설치
+ windows 32bit 버젼의 경우 공식 지원 없지만 연구용으로 설치
+ c:\redis
+ 
