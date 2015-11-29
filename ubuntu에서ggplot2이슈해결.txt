@@ -1,0 +1,35 @@
+현재 사용하는 ubuntu 버젼에서는 R이 3.0.2 버젼이 설치됨
+Ubuntu 14.04.3 LTS (Trusty Tahr) - Ubuntu Releases
+
+위의 버젼에서는 ggplot2 설치가 되지 않음. 해결 필요
+
+$ sudo gedit /etc/apt/sources.list
+아래 문장을 넣음
+# R
+deb http://cran.cnr.berkeley.edu/bin/linux/ubuntu trusty/
+
+아래 문장을 통하여 R Update 수행
+sudo apt-get update
+sudo apt-get install r-base
+
+수행 완료하면 R 3.0에서 3.2.2버젼으로 변경됨
+$ sudo R
+install.packages("ggplot2", dependencies=T)
+
+테스트
+> x=c(1:10)
+> y=x^2
+> df=data.frame(x,y)
+> df
+    x   y
+1   1   1
+2   2   4
+3   3   9
+4   4  16
+5   5  25
+6   6  36
+7   7  49
+8   8  64
+9   9  81
+10 10 100
+> ggplot(data=df, aes(x=x, y=y))+geom_line()
