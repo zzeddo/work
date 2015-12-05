@@ -1,0 +1,21 @@
+12월 5일(토) Spark 스타디 참석함
+3가지 주제에 대하여 논의를 하게 됨
+
+1. 그래프 이론
+ http://barabasi.com/networksciencebook/
+ 지용기
+ 
+2. Spark를 통한 그래프 분석(GraphX) 
+http://www.amazon.com/Apache-Spark-Processing-Rindra-Ramamonjison/dp/1784391808
+Apache Spark Graph Processing
+
+3. 실시간 데이터 분석(Spark Streamming)
+http://www.amazon.com/Learning-Real-processing-Spark-Streaming/dp/1783987669
+Learning Real Time processing with Spark Streaming 
+
+--------------
+Spark(http://spark.apache.org/)는 분산병렬처리를 위한 인프라다.
+Spark는 단독으로 사용하기는 힘들고 데이터 제공 인프라(하둡 등)을 활용해야 한다.
+(저장소는 제공하지 않음)
+현재 Spark 버전은 1.5.2(15.11.9)
+Spark의 핵심 추상화 개념은 Resilent Disributed Datase(RDD)을 기본 개념으로 함
