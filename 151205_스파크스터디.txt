@@ -1,0 +1,46 @@
+교재
+1. Network Science
+2. Spark Streamming
+------------------
+* (SparkGraph) 1: Getting Started with Spark and GraphX
+* (SparkStreaming) 2. Architecture and Components of Spark and Spark Streaming
+* (네트워크) 6. Evolving Networks (1)
+
+교재
+http://211.249.50.37:8888/notebooks/note/01_ScalaML/SparkGraphx_01.ipynb
+scala 교재 : 스칼라로 배우는 함수형 프로그래밍
+
+spark 설치
+spark 1.5.2(15년 11월 9일) 버전에 "Pre-built for Hadoop 2.6 and later"를 받는다.
+ /home/zedo/다운로드/spark-1.5.2-bin-hadoop2.6.tgz 
+ (wget http://apache.mirror.cdnetworks.com/spark/spark-1.5.2/spark-1.5.2-bin-hadoop2.6.tgz)
+받은 파일 압축 풀기
+ tar -xvf spark-1.5.2-bin-hadoop2.6.tgz
+설치하기
+ 위치 : /home/zedo/spark
+ 압축 푼 파일을 위의 디렉토리에 복사한다.
+
+spark 실행
+/home/zedo/spark 디렉토리에서 bin으로 이동하여 spark-shell 실행한다.
+하지만 java가 설치되지 않아 실패하여 java 설치 진행한다.
+
+java 1.7 설치
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java7-installer
+
+환경 설정(.bashrc)
+vi .bashrc(혹은 vi ~/.bashrc)
+ export SPARKHOME="/home/zedo/spark/"
+ export SPARKSCALAEX="/home/zedo/spark/examples/src/main/scala/org/apache/spark/examples/"
+ source ~/.bashrc
+
+GraphX를 사용해 보자
+spark가 실행된 상태에서 수행함
+
+ubuntu에 대하여 jupyter notebook 사용하기 위하여 anaconda 설치함
+ 사이트  : https://www.continuum.io/downloads
+ 설치 : $ sudo bash Anaconda3-2.4.0-Linux-x86.sh
+ 디렉토리 : /home/zedo/anaconda3
+
+
