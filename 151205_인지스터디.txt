@@ -1,0 +1,49 @@
+ubuntu 바탕화면에 바로가기 설치하기
+1. Terminal Icon 추가하기
+	/home/zedo/바탕화면/Terminal.desktop 파일 생성
+ 아래의 내용을 추가함
+	[Desktop Entry]
+	Name=Terminal
+	Type=Application
+	Exec=/usr/bin/gnome-terminal
+	Icon=/usr/share/app-install/icons/terminal-tango.svg
+	Terminal=false
+	NoDisplay=false
+	Categories=Application
+ 생성된 파일의 속성을 실행으로 변경
+ 	chmod 777 Terminal.desktop
+
+2. docker
+http://www.slideshare.net/pyrasis/docker-fordummies-44424016?related=1
+도커 무작정 따라하기가 교재임
+개발, 테스트, 서비스 환경을 하나로 통일하여 효율적으로 관리할 수 있기 때문
+리눅스 커널이 제공하는 컨테이너 기술을 이용
+Github와 유사한 Docker Hub 제공
+3가지 기술 : namespace, cgroup(Quota), SE Linux(보안)
+docker 컨테이너는 가상화가 아닌 격리로 인하여 H/W 처리(파일, 메모리, 네트워크) 속도가 호스트와 차이가 거의 없음
+docker는 root 계정으로 수행해야 하기 때문에 root로 수행하는 것이 좋음
+   "sudo su" 를 통하여 root로 전환함
+
+docker를 사용해 보자(root 게정)
+서비스 시작
+# service docker start
+Docker Hub에서 이미지 검색
+# docker search ubuntu
+Docker Hub에서 이미지 받기(hub.docker.com)
+# sudo docker pull ubuntu:latest
+# sudo docker pull redis:latest
+설치된 image보기
+# docker images
+
+이미지 실행하기(hello)
+ubuntu 이미지를 컨테이너로 생성한 뒤 ubuntu 이미지 않의 /bin/bash를 실행
+# docker run -i -t --name hello ubuntu /bin/bash
+나의 경우 오류가 발생함
+exec format error
+FATA[0000] Error response from daemon: Cannot start container 137c01d2afb26a045aabc3dff12db69e485359ed42268ed8f8af59e7b88c6d0f: [8] System error: exec format error 
+
+docker ps -s 
+
+------------------
+https://github.com/KaggleBreak
+12월 19일 오후 4시부터 스터디 수행함
