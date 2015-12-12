@@ -1,0 +1,81 @@
+내일 Spark Stream을 발표하기 위해서 준비해야 한다.
+----------------------------
+1. spark 설치
+- 사이트 : http://spark.apache.org/
+ spark 1.5.2(15년 11월 9일) 버전에 "Pre-built for Hadoop 2.6 and later"를 받는다.
+ /home/zedo/다운로드/spark-1.5.2-bin-hadoop2.6.tgz 
+ (wget http://apache.mirror.cdnetworks.com/spark/spark-1.5.2/spark-1.5.2-bin-hadoop2.6.tgz)
+받은 파일 압축 풀기
+ tar -xvf spark-1.5.2-bin-hadoop2.6.tgz
+설치하기
+ 위치 : /home/zedo/spark
+ 압축 푼 파일을 위의 디렉토리에 복사한다.
+
+spark 실행
+/home/zedo/spark 디렉토리에서 bin으로 이동하여 spark-shell 실행한다.
+하지만 java가 설치되지 않아 실패하여 java 설치 진행한다.
+
+java 1.7 설치
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java7-installer
+
+환경 설정(.bashrc)
+$vi .bashrc(혹은 vi ~/.bashrc)
+ export SPARKHOME="/home/zedo/spark/"
+ export SPARKSCALAEX="/home/zedo/spark/examples/src/main/scala/org/apache/spark/examples/"
+$ source ~/.bashrc
+
+----------------------------
+2. anaconda 설치
+ubuntu에 대하여 jupyter notebook 사용하기 위하여 anaconda 설치함
+ 사이트  : https://www.continuum.io/downloads
+ 설치 : $ sudo bash Anaconda3-2.4.0-Linux-x86.sh
+ 디렉토리 : /home/zedo/anaconda3
+
+----------------------------
+3. anaconda에서 R 설치함
+$ sudo conda install -c r r
+r 버젼이 3.2.2 임--> 최신 버젼이네.. 헉
+R에서 팩키지 설치하려면 root 권한이여야 하는데
+root의 .bashrc 파일 수정 필요
+# vi ~/.bashrc
+export SPARKHOME="/home/zedo/spark/"
+export SPARKSCALAEX="/home/zedo/spark/examples/src/main/scala/org/apache/spark/examples/"
+
+# added by Anaconda3 2.4.1 installer
+export PATH="/home/zedo/anaconda3/bin:$PATH"
+
+R을 실행하고 ggplot 수행시 CRAN URL 찾을 수 없다란 오류 발생
+팩키지 설치할 때 아래 문자를 통해 해결
+install.packages("ggplot2", dependencies=T, repos="http://cran.cnr.berkeley.edu")
+
+R을 "$sudo R" 을 통하여 root 권한으로 실행하여만 팩키지 설치시 권한 문제 해결됨
+
+awk설치가 되지 않아 설치 오류 발생
+설치함
+$sudo apt-get install gawk
+g++ 설치가 되지 않아 오류 발생
+$sudo apt-get install g++
+
+재설치 진행
+install.packages("ggplot2", dependencies=T,repos="http://cran.cnr.berkeley.edu")
+
+성공
+----------------------------
+> x=c(1:10)
+> y=x^2
+> df=data.frame(x,y)
+> df
+    x   y
+1   1   1
+2   2   4
+3   3   9
+4   4  16
+5   5  25
+6   6  36
+7   7  49
+8   8  64
+9   9  81
+10 10 100
+> ggplot(data=df, aes(x=x, y=y))+geom_line()
