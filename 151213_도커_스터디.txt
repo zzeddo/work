@@ -1,0 +1,42 @@
+$ sudo su
+# service start docker
+# docker ps
+# docker run -d -p 9999:8888 -e GRANT_SUDO=yes --name psy_spark jupyter/all-spark-notebook
+
+Docker Hub를 통하여 컨테이너 이미지를 push/pull 가능(유료?)
+
+Docker Image는 서비스 운영에 필요한 서버 프로그램, 소스코드, 커파일된 실행 파일을 묶은 형태(push/pull)
+
+한번 설정한 운영 환경은 변경되지 않는다(Immutable)는 개념 도입
+
+# docker images --> docker에 설치된 이미지 보기
+
+* Docker의 설치(ubuntu 14.04(LTS))
+$ sudo apt-get update
+$ sudo apt-get install docker.io
+$ sudo ln -sf /usr/bin/docker.io /usr/local/bin/docker
+
+# docker search ubuntu
+
+Docker Hub(https://hub.docker.com/)에 계정 생성(zzeddo)
+Hub를 통하여 유명 리눅스 배포판과 오픈 소스 프로젝트(Redis, Nginx 등)의 이미지를 모두 Docker Hub에서 구할 수 있음
+
+-d : detached
+-e : environment
+# docker run -d -p 9999:8888 -e GRANT_SUDO=yes --name psy_spark jupyter/all-spark-notebook
+
+위의 서비스 중단(# docker stop psy_spark) 시킨 후 다시 시작할때 이름 사용
+# docker start psy_spark
+
+컨테이너의 삭제는 
+# docker rm psy_spark
+
+컨테이너 이미지의 삭제는
+# docker rmi jupyter/all-spark-notebook
+
+
+아래와 같이 수행하여도 됨(detach가 아니라 foreground)
+--name을 지정하지 않으면 알아서 설정함
+
+# docker ps -a --> 모든 컨테이너 목록 출력
+# docker run -p 9999:8888 jupyter/all-spark-notebook
