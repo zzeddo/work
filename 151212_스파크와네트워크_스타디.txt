@@ -1,0 +1,31 @@
+박세진씨 jupyter notebook 환경(digitalocean에서 서비스 제공함)
+http://104.236.55.179:9999
+
+도커 환경을 제공함
+https://cloud.digitalocean.com/login
+
+마이크로소프트에서 아조라(azora) 환경 제공함
+----------------------------------------------
+docker hub를 통하여 구성이 잘된 확인 가능
+# docker serach spark
+# docker ps
+# history | grep docker
+# docker pull juypter
+# docker run -d -p 9999:8888 -e GRANT_SUDO=yes --name psy_spark jupyter/all-spark-notebook
+--> 9999 포트명
+--> 9999:8888 juypter notebook 기본으로 8888 사용하지만 9999로 포트 포워딩
+
+# vi /etc/apt/sources.list.d/docker.list
+  deb https://apt.dockerproject.org/repo ubuntu-trusty main
+
+# apt-get update
+# apt-cache policy docker-engine
+
+# apt-get install docker-engine
+# service docker start
+# docker run hello-world
+# docker search all-spark-notebook
+NAME                                       DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED
+jupyter/all-spark-notebook                 Jupyter Notebook Python, Scala, R, Spark, ...   5          
+# docker run -d -p 9999:8888 -e GRANT_SUDO=yes --name psy_spark jupyter/all-spark-notebook
+**** 
