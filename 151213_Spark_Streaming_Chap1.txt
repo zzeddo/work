@@ -1,0 +1,247 @@
+[제목] Learning Real-time Processing with Spark Streaming
+작업 환경 : ubuntu 14.04(LTS)
+작업 디렉토리 만듬
+/home/zedo/work/sparkstreaming
+--------------------
+[Preface]
+하둡은 대용량 데이터에 대한 배처 처리에 적합하지만 비지니스 측면에서는 실시간 혹은 유사실시간(near real-time) 요건이 있으며 이것을 대응하기 위하여 실시간비지니스인텔리전스(real-time business intelligence) 혹은 유사실시간비지니스인텔리전스(near real-time business intelligence)가 필요하다.
+위의 요건을 만족하기 위해 Apache Storm과 Apahce Spark이 활성화 되었다.
+- Apache Storm
+  분산 스트리밍 데이터 처리할 수 있는 신뢰성 있는 프레임워크를 제공한다.
+  CEP(Complex Event Processing) 형태의 처리에 적합하다
+  JAVA을 통하여 프로그램 수행
+- Apache Spark
+  Hadoop과 Storm의 장점을 가지면서 다양한 개발언어(scala, python, java)로 개발.
+  다양한 라이브러리 제공함(Spark GraphX, MLlib, Spark Streaming)
+--------------------
+[1장. Spark와 Spark Streaming 설치와 구성]
+Spark는 다양한 배치(batch) 및 실시간(real-time) 업무처리에 사용할 수 있는 공통 프레임워크를 제공하며 범용 분산처리 프레임워크로 빠른 어플리케이션 개발(RAD :Rapid Application Development)를 가능케 한다.
+PC나 노트북에서 작성한 Spark 소스는 다양한 분산 클러스터 매니저 환경(Apache Mesos, Apache Hadoop YARN)에서 변경 없이 배포(Deploy)될 수 있다.
+
+1. 하드웨어 요구
+- CPU : 최소 Dual Core 이상
+- RAM : 최소 8GB
+- Disk : 최소 15k RPM 이상 SATA, SSD 권장
+- Network : 최소 1Gbps 이상
+- O/S : Linux 혹은 HP-UX 권장
+
+2. 소프트웨어 요구
+- Spark Core는 Scala로 개발되었지만 다양한 개발언어에서 사용 가능한 API 제공함.
+  (Java, Python 등)
+- 교재에서는 Linux 환경의 Java와 scala에 대하여 논의할 것임
+1) Spark 설치
+- 사이트 : http://spark.apache.org
+- spark 1.5.2(15년 11월 9일) 버전
+  "Pre-built for Hadoop 2.6 and later"를 받는다.
+  저장 위치 : /home/zedo/다운로드/spark-1.5.2-bin-hadoop2.6.tgz 
+- 받은 파일 압축 풀기
+  tar -xvf spark-1.5.2-bin-hadoop2.6.tgz
+- 설치하기
+  위치 : /home/zedo/spark
+  압축 푼 파일을 위의 디렉토리에 복사한다.
+- 실행
+  /home/zedo/spark 디렉토리에서 bin으로 이동하여 spark-shell 실행한다.
+- 환경 설정(.bashrc)
+  $ vi .bashrc(혹은 vi ~/.bashrc)
+   export SPARK_HOME="/home/zedo/spark"
+   export SPARK_SCALAEX="/home/zedo/spark/examples/src/main/scala/org/apache/spark/examples/"
+   export PATH="/home/zedo/spark/bin:$PATH"
+  $ source ~/.bashrc
+2) java 설치
+- java 1.7 설치
+  $ sudo add-apt-repository ppa:webupd8team/java
+  $ sudo apt-get update
+  $ sudo apt-get install oracle-java7-installer
+3) scala 설치
+  sudo apt-get install scala
+  (삭제할 경우 sudo apt-get remove scala)
+  위의 방법으로 설치할 경우 scala 2.9.2 버젼이 설치되며 spark내의 scala 버젼 차이로
+  문제 발생(exception)
+- 아래 사이트에서 받기
+  http://downloads.typesafe.com/scala/2.10.5/scala-2.10.5.tgz?_ga=1.7758962.1104547853.1428884173
+- 압축해제
+  $ tar -xvf scala-2.10.5.tgz
+- 디렉토리 이동
+  $ sudo mv scala-2.10.5 /home/zedo/scala
+- 환경 설정(.bashrc)
+  $ vi .bashrc(혹은 vi ~/.bashrc)
+   export SCALA_HOME="/home/zedo/scala"
+   export PATH="/home/zedo/scala/bin:$PATH"
+4) Eclipse 설치
+- 사이트
+  http://www.eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/lunasr2
+- 자신의 운영체제 버젼에 따라 설치함(예 : Linux 64bit)
+- 압축풀기
+  gunzip *.gz
+  tar -xvf eclipse-jee-luna-SR2-linux-gtk-x86_64.tar
+- 이동
+  $ mv eclipse /home/zedo/eclipse
+- 실행
+  $ /home/zedo/eclipse/eclipse
+- 환경 설정(.bashrc)
+  $ vi .bashrc(혹은 vi ~/.bashrc)
+   export PATH="/home/zedo/eclipse:$PATH"
+5) IDE for Scala in eclipse
+- 사이트( Linux - 64 bit)
+  http://scala-ide.org/download/sdk.html
+- 압축풀기(/home/zedo에서 압축 풀기) - 기존 eclipse 덮어 쓰기
+  gunzip scala-SDK-4.3.0-vfinal-2.11-linux.gtk.x86_64.tar.gz
+----------------------------
+참조 : ~/.bashrc
+----------------------------
+# spack environment
+export SPARK_HOME="/home/zedo/spark"
+export SPARK_SCALAEX="/home/zedo/spark/examples/src/main/scala/org/apache/spark/examples"
+export SCALA_HOME="/home/zedo/scala"
+
+export PATH="/home/zedo/eclipse:/home/zedo/spark/bin:/home/zedo/scala/bin:$PATH"
+
+4. Spark Cluster 구성
+stanadalone mode로 구성해서 테스트 수행
+1) master-node의 기동하고 spark UI를 통한 spark cluster내의 node와 job감시
+  $  sudo $SPARK_HOME/sbin/start-master.sh
+  (중단할 경우 : sudo $SPARK_HOME/sbin/stop-master.sh)
+  http://localhost:8080/ --> standalone 환경의 spark 확인 가능
+2) worker node 기동
+  $ sudo su
+  # ps -ef | grep spark --> 아래 정보에서 ip와 port 확인 후 worker 기동
+   root      5295  1162  1 16:18 pts/3    00:00:05 /usr/lib/jvm/java-7-oracle/jre/bin/java -cp /home/zedo/spark/sbin/../conf/:/home/zedo/spark/lib/spark-assembly-1.5.2-hadoop2.6.0.jar:/home/zedo/spark/lib/datanucleus-core-3.2.10.jar:/home/zedo/spark/lib/datanucleus-rdbms-3.2.9.jar:/home/zedo/spark/lib/datanucleus-api-jdo-3.2.6.jar -Xms1g -Xmx1g -XX:MaxPermSize=256m org.apache.spark.deploy.master.Master --ip zedo-G31T-M7 --port 7077 --webui-port 8080
+ 
+  $ sudo $SPARK_HOME/bin/spark-class org.apache.spark.deploy.worker.Worker spark://zedo-G31T-M7:7077 &
+
+5. 첫번째 Spark 프로그램(Scala)
+1) RDD
+spark은 RDD(Resilient Distributed Datasets) 개념하에서 동작한다.
+spark에서 처리되는 모든 데이터는 RDD로 변환되어 spark cluster에 적재된다.
+RDD는 분산 메모리로 추상화되어 cluster에서 fault-tolerant 형태로 인메모리 연산을 수행한다.
+spark에서는 RDD를 생성하는 다양한 방법을 제공한다.(hadoop, 텍스트 파일 등)
+
+2) SparkContext
+SparkContext는 spark 프레임워크상에서 모든 기능을 외부에 접근 가능케하는 키(Key)임.
+1개의 JVM에 1개의 SparkContext 제공(향후에는 이런 제약을 제거 예정)
+
+3) scala로 코딩하기
+주어진 텍스트파일에서 라인의 수를 세기
+- eclipse 기동
+  scala project 생성(Spark-Examples)
+  Scala library 변경(현재 2.11.7 -> Lastest 2.10 bundle)
+- Property > Build > Configure Build Path > Add External JARs에서
+  $SPARK_HOME/lib에 있는 jar 파일을 포함한다.
+- 코딩을 완료한 후에 Spark-Examples.jar 파일을 생성한다.
+  File > export > jar > Spark-Examples.jar
+- 프로그램 실행($SPARK_HOME 디렉토리에서 root 권한으로 실행)
+  # $SPARK_HOME/bin/spark-submit --class chapter.one.ScalaFirstSparkExample --master spark://zedo-G31T-M7:7077 Spark-Examples.jar
+--------------------------------
+Coding Spark jobs in Scala (packages.scala)
+--------------------------------
+package chapter.one
+import org.apache.spark.{SparkConf, SparkContext}
+object ScalaFirstSparkExample {
+  
+  def main(args: Array[String]){
+       println("Creating Spark Configuration")    //Create an Object of Spark Configuration
+    val conf = new SparkConf()
+    //Set the logical and user defined Name of this Application
+    conf.setAppName("My First Spark Scala Application")
+    
+    //Define the URL of the Spark Master. 
+    //Useful only if you are executing Scala App directly 
+    //from the console.
+    //We will comment it for now but will use later
+    //conf.setMaster("spark://ip-10-237-224-94:7077")
+    println("Creating Spark Context")
+    
+    //Create a Spark Context and provide previously created 
+    //Object of SparkConf as an reference. 
+    val ctx = new SparkContext(conf)
+    println("Loading the Dataset and will further process it")
+    
+    //Defining and Loading the Text file from the local
+    //file system or HDFS 
+    //and converting it into RDD.
+    //SparkContext.textFile(..) - It uses the Hadoop's 
+       //TextInputFormat and file is 
+    //broken by New line Character.
+    //Refer to http://hadoop.apache.org/docs/r2.6.0/api/org/apache/hadoop/mapred/TextInputFormat.html
+    //The Second Argument is the Partitions which specify 
+    //the parallelism. 
+    //It should be equal or more then number of Cores in //the cluster.
+    val file = System.getenv("SPARK_HOME")+"/README.md";
+    val logData = ctx.textFile(file, 2)
+    
+    //Invoking Filter operation on the RDD.
+    //And counting the number of lines in the Data loaded //in RDD.
+    //Simply returning true as "TextInputFormat" have 
+    //already divided the data by "\n"
+    //So each RDD will have only 1 line.
+    val numLines = logData.filter(line => true).count()
+    
+    //Finally Printing the Number of lines.
+    println("Number of Lines in the Dataset " + numLines)
+  }
+}
+------------------------------
+  
+5. 첫번째 Spark 프로그램(JAVA)
+- 기존의 "chapter.one" 팩키지에 JavaFirstSparkExample.java 파일을 생성
+- 코딩을 완료한 후에 Spark-Examples.jar 파일을 생성한다.
+  File > export > jar > Spark-Examples.jar
+- 프로그램 실행($SPARK_HOME 디렉토리에서 root 권한으로 실행)
+  # $SPARK_HOME/bin/spark-submit --class chapter.one.JavaFirstSparkExample --master spark://zedo-G31T-M7:7077 Spark-Examples.jar
+
+--------------------------------
+Coding Spark jobs in Java (packages.scala)
+--------------------------------
+package chapter.one;
+import org.apache.spark.SparkConf;
+import org.apache.spark.SparkConf;
+import org.apache.spark.api.java.JavaRDD;
+import org.apache.spark.api.java.JavaSparkContext;
+import org.apache.spark.api.java.function.Function;
+public class JavaFirstSparkExample {
+  
+  public static void main(String args[]){
+   System.out.println("Creating Spark Configuration");
+   // Create an Object of Spark Configuration
+   SparkConf javaConf = new SparkConf();
+   // Set the logical and user defined Name of this Application
+   javaConf.setAppName("My First Spark Java Application");
+   // Define the URL of the Spark Master
+   //Useful only if you are executing Scala App directly 
+   //from the console.
+   //We will comment it for now but will use later
+   //conf.setMaster("spark://ip-10-237-224-94:7077");
+   System.out.println("Creating Spark Context");
+   // Create a Spark Context and provide previously created 
+   //Objectx of SparkConf as an reference.
+   JavaSparkContext javaCtx = new JavaSparkContext(javaConf);
+   System.out.println("Loading the Dataset and  will further process it");
+   //Defining and Loading the Text file from the local 
+   //filesystem or HDFS 
+   //and converting it into RDD.
+   //SparkContext.textFile(..) - It uses the Hadoop's         
+   //TextInputFormat and file is 
+   //broken by New line Character.
+   //Refer to 
+   //http://hadoop.apache.org/docs/r2.6.0/api/org/apache//hadoop/mapred/TextInputFormat.html
+   //The Second Argument is the Partitions which specify 
+   //the parallelism. 
+   //It should be equal or more then number of Cores in 
+   //the cluster.
+   String file = System.getenv("SPARK_HOME")+"/README.md";
+   JavaRDD<String> logData = javaCtx.textFile(file);
+   //Invoking Filter operation on the RDD.
+   //And counting the number of lines in the Data loaded //in RDD.
+   //Simply returning true as "TextInputFormat" have 
+   //already divided the data by "\n"
+   //So each RDD will have only 1 line.
+   long numLines = logData.filter(new Function<String, Boolean>() {
+	   public Boolean call(String s) {
+		   return true;
+	   }
+   }).count();
+   //Finally Printing the Number of lines
+   System.out.println("Number of Lines in the Dataset "+numLines);
+   javaCtx.close();
+  }
+}
